@@ -1,0 +1,19 @@
+{
+  "name": "sendax-web-app",
+  "version": "0.0.0",
+  "description": "SendaxWebApp",
+  "main": "server.js",
+  "author": {
+    "name": "Simon"
+  },
+  "dependencies": {
+    "body-parser": "1.9.3",
+    "express": "~4.9.0",
+    "nedb": "^1.8.0",
+    "nodemailer": "^2.7.0",
+    "validator": "^6.2.0"
+  },
+  "devDependencies": {
+    "assert": "^1.4.1"
+  }
+}

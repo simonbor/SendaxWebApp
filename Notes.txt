@@ -1,0 +1,29 @@
+
+// -------------
+Git source control and Heroku upload
+
+git init
+echo 'node_modules' > .gitignore
+git add .
+git commit -am 'initial commit'
+
+heroku apps:create 
+git push heroku master
+
+continue commits and deploy - 
+git add . & git commit -am "" & git push heroku master
+
+// -------------
+Some Usable
+
+TypeScript with NodeJS (live compile + run included) - 
+https://basarat.gitbooks.io/typescript/content/docs/quick/nodejs.html
+
+Email sent throw Gmail workaround/necessary steps - 
+1. https://support.google.com/accounts/answer/6010255
+2. https://accounts.google.com/DisplayUnlockCaptcha
+
+Sent mails via NodeMailer links - 
+1. http://thisdavej.com/node-js-sending-email-notifications-using-nodemailer-and-gmail/
+2. http://javascript.tutorialhorizon.com/2015/07/02/send-email-node-js-express/
+3. https://nodemailer.com/using-gmail/  (Mailgun or SendGrid)
