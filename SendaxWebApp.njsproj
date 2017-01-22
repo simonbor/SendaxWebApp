@@ -8,6 +8,7 @@
     <EnableTypeScript>true</EnableTypeScript>
     <TypeScriptSourceMap>true</TypeScriptSourceMap>
     <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
+    <Environment>NODE_ENV=development</Environment>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -47,19 +48,22 @@
   <ItemGroup>
     <Content Include=".gitignore" />
     <Content Include=".slugignore" />
+    <Content Include="appConfig\config.development.json" />
+    <Content Include="appConfig\config.production.json" />
     <Content Include="Notes.txt" />
     <Content Include="package.json" />
     <Content Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="appCore\AppCore.ts" />
+    <TypeScriptCompile Include="appConfig\index.ts" />
     <TypeScriptCompile Include="appCore\BaseProvider.ts" />
     <TypeScriptCompile Include="appCore\Crypt.ts" />
     <TypeScriptCompile Include="appCore\Dal.ts" />
     <TypeScriptCompile Include="appCore\Factory.ts" />
+    <TypeScriptCompile Include="appCore\index.ts" />
     <TypeScriptCompile Include="appCore\Sender.ts" />
+    <TypeScriptCompile Include="appModels\index.ts" />
     <TypeScriptCompile Include="appModels\Mail.ts" />
-    <TypeScriptCompile Include="appModels\AppModels.ts" />
     <TypeScriptCompile Include="appModels\Sms.ts" />
     <TypeScriptCompile Include="appRouters\AppRouter.ts" />
     <TypeScriptCompile Include="appTests\UnitTest1.ts">
@@ -75,6 +79,7 @@
     <Folder Include="appModels\" />
     <Folder Include="appData\" />
     <Folder Include="appTests\" />
+    <Folder Include="appConfig\" />
     <Folder Include="Scripts\" />
     <Folder Include="Scripts\typings\" />
     <Folder Include="Scripts\typings\node\" />

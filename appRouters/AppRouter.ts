@@ -1,4 +1,4 @@
-﻿import Core = require('../appCore/AppCore');
+﻿import Core = require('../appCore');
 
 namespace Routers {
     var express: any = require("express");

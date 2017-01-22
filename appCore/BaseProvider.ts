@@ -1,4 +1,4 @@
-﻿import Core = require('../appCore/AppCore');
+﻿import Core = require('../appCore');
 
 export enum RepeatPeriods {
     H = 60000 * 60,             //3,600,000 - hour

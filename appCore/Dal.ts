@@ -1,4 +1,4 @@
-﻿import Core = require('../appCore/AppCore');
+﻿import Core = require('../appCore');
 
 export enum DbCollection {
     Orders = <any>"Orders",

@@ -1,10 +1,10 @@
-﻿import Models = require('../appModels/AppModels');
+﻿import Models = require('../appModels');
 
 export interface IProvider {
     valid: () => boolean;       // check the order
-    insert: (cb: any) => any;     // save the order
+    insert: (cb: any) => any;   // save the order
     send: (cb: any) => void;    // send the order
-    update: () => any;      // update sent order
+    update: () => any;          // update sent order
     store: (cb: any) => void;   // update sent order
 }
 

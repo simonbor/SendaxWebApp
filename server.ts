@@ -1,15 +1,16 @@
-﻿var express: any = require("express");
-import Core = require('./appCore/AppCore');
+﻿const express: any = require("express");
+const cfg = require('./appConfig');
+import Core = require('./appCore');
 
-var app: any = express();
-var port: number = process.env.PORT || 3000;
+const app: any = express();
+const port: number = process.env.PORT || 3000;
 
 //--------------------------------------
 // Express Routers
 //--------------------------------------
-var mailRouter: any = require("./appRouters/AppRouter");
+const mailRouter: any = require("./appRouters/AppRouter");
 app.use("/mail", mailRouter);
-var smsRouter: any = require("./appRouters/AppRouter");
+const smsRouter: any = require("./appRouters/AppRouter");
 app.use("/sms", smsRouter);
 
 app.get("/", (req: any, res: any) => {
@@ -17,14 +18,13 @@ app.get("/", (req: any, res: any) => {
 });
 
 //--------------------------------------
-// turning on the Loop Sending mechanism
+// the Loop Sending mechanism
 //--------------------------------------
-let loopSeconds = 30;
+const loopSeconds = 30;
 function loop() {
     Core.Sender.sendAll((sendResult: any) => console.log('Performed ' + sendResult + ' orders'));
     setTimeout(loop, loopSeconds * 1000);
 }
-loop();
-
+cfg.app.active && loop();
 
 app.listen(port);

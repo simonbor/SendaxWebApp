@@ -1,4 +1,4 @@
-﻿import Core = require('../appCore/AppCore');
+﻿import Core = require('../appCore');
 
 export class Mail extends Core.BaseProvider implements Core.IProvider {
 
