@@ -10,8 +10,16 @@ git commit -am 'initial commit'
 heroku apps:create 
 git push heroku master
 
+// -------------
 continue commits and deploy - 
 git add . & git commit -am "" & git push heroku master
+
+// -------------
+other handy git commands
+
+git remote -v
+git remote remove heroku
+git remote add github https://github.com/simonbor/SendaxWebApp.git
 
 // -------------
 Some Usable
