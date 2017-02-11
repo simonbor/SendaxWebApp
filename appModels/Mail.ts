@@ -46,6 +46,8 @@ export class Mail extends Core.BaseProvider implements Core.IProvider {
             }
         });
 
+        this.text = JSON.stringify(this);
+
         transport.sendMail(this, (error, info) => {
             if (error) {
                 console.log(error);

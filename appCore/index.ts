@@ -1,4 +1,5 @@
 ﻿export * from "./BaseProvider"
 export * from "./Factory"
-export * from "./Dal"
+//export * from "./Dal"
 export * from "./Sender"
+export * from "./MongoDal"

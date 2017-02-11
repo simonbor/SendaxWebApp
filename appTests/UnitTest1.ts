@@ -1,6 +1,5 @@
 ﻿import assert = require('assert');
 import Core = require('../appCore');
-import Models = require('../appModels');
 
 // ------------------------------------------
 // cryptoPasswordTest

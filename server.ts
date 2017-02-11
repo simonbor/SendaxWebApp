@@ -1,5 +1,5 @@
 ﻿const express: any = require("express");
-const cfg = require('./appConfig');
+import cfg = require('./appConfig');
 import Core = require('./appCore');
 
 const app: any = express();
@@ -20,11 +20,12 @@ app.get("/", (req: any, res: any) => {
 //--------------------------------------
 // the Loop Sending mechanism
 //--------------------------------------
-const loopSeconds = 30;
-function loop() {
+function loop(delay) {
     Core.Sender.sendAll((sendResult: any) => console.log('Performed ' + sendResult + ' orders'));
-    setTimeout(loop, loopSeconds * 1000);
+    setTimeout(loop, delay * 1000, delay);
 }
-cfg.app.active && loop();
+
+const delay = 15;
+cfg.app.active && setTimeout(loop, delay * 1000, delay);
 
 app.listen(port);

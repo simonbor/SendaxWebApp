@@ -1,4 +1,4 @@
-﻿import Dal = require('./Dal');
+﻿import Dal = require('./MongoDal');
 import Factory = require('./Factory');
 
 export class Sender {
@@ -17,7 +17,7 @@ export class Sender {
         }
     }
 
-    public static sendAll(callback: any): void {
+    public static sendAll(cb: any): void {
         var orders = Array<Factory.IProvider>();
         Dal.DataBase.findOrdersToSend((docs) => {
             for (var i = 0; i < docs.length; i++) {
@@ -25,9 +25,9 @@ export class Sender {
             }
 
             if (orders && orders.length > 0) {
-                this.sendThese(orders, callback);
+                this.sendThese(orders, cb);
             } else {
-                callback(0); // orders for sending not found
+                cb(0); // orders for sending not found
             }
         });
     }

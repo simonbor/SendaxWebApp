@@ -1,4 +1,6 @@
 node_modules
+appData/*.json
 bin
 obj
 *.txt
+Scripts

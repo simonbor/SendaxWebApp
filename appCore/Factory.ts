@@ -1,7 +1,7 @@
 ﻿import Models = require('../appModels');
 
 export interface IProvider {
-    valid: () => boolean;       // check the order
+    valid: () => boolean;       // check the order - validate only and only the HTTP request structure
     insert: (cb: any) => any;   // save the order
     send: (cb: any) => void;    // send the order
     update: () => any;          // update sent order

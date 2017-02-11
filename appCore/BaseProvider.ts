@@ -4,8 +4,8 @@ export enum RepeatPeriods {
     H = 60000 * 60,             //3,600,000 - hour
     D = 60000 * 60 * 24,        // 86,400,000 - day
     W = 60000 * 60 * 24 * 7,    // 604,800,000 - weak
-    M = 60000 * 60 * 24 * 30,   // 2,592,000,000 - mounth
-    //M = 60000,                  // one min
+    //M = 60000 * 60 * 24 * 30,   // 2,592,000,000 - mounth
+    M = 60000,                  // one min
     Y = 60000 * 60 * 24 * 365   // 31,536,000,000 - year
 };
 
@@ -41,6 +41,7 @@ export abstract class BaseProvider implements Core.IProvider {
         this.repeated = doc.repeated && typeof(doc.repeated) == "number" ? doc.repeated : this.repeated;
     }
 
+    // validate only and only the HTTP request structure
     valid(): boolean {
 
         // this.time is should be positive whole number
@@ -52,13 +53,31 @@ export abstract class BaseProvider implements Core.IProvider {
     }
 
     insert(cb: any): any {
+
+        // TODO: add the logic for ask the DB for user type - test, registered active, registered inactive
+        // TODO: in case of inactive the insert DOES NOT HAPPEN!
+        // TODO: in case of inactive or returns test for the test user the func calls the callback with error
+
+
+
+        // Core.DataBase.insertNewOrder(this, cb);
+        //let mongo = Core.Mongo.getInstance;
+
+        // let uri = process.env.MLAB_SENDAX_URI;
+        // let mongo: Core.Mongo = new Core.Mongo(uri);
+
         Core.DataBase.insertNewOrder(this, cb);
+
+        //mongo.insertNewOrder(this, cb);
     }
 
     send(callback: any) {};
 
     // update
     update(): any {
+
+        // TODO: if the user is test user make the equal to true and leave the func
+
         this.repeated =++ this.repeated || 0;
 
         if (this.repeat && this.repeat.length > 1 && /^[HDWMY]$/.test(this.repeat[0].toUpperCase()) && /^\d$/.test(this.repeat[1])) {
