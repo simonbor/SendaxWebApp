@@ -1,4 +1,5 @@
 ﻿import Core = require('../appCore');
+import Models = require('../appModels');
 
 export class Mail extends Core.BaseProvider implements Core.IProvider {
 
@@ -36,26 +37,28 @@ export class Mail extends Core.BaseProvider implements Core.IProvider {
     public send(callback: any) {
         const nodemailer = require('nodemailer');
         const crypt = require('../appCore/Crypt');
-        const encryptedPassword = '87cf1d70f26031a29aaa';
+        const cfg: any = require('../appConfig');
 
-        const transport = nodemailer.createTransport({
-            service: 'Gmail',
-            auth: {
-                user: 'simonbor.bell@gmail.com',
-                pass: crypt.decrypt(encryptedPassword)
-            }
-        });
+        Core.DataBase.getUser(this.token, (user: Models.User) => {
+            // retrive the default user from config for test sending
+            user = user || cfg.defUser;
 
-        this.text = JSON.stringify(this);
+            let mailAccount: any = JSON.parse(JSON.stringify(user.mailAccount[0]));
+            mailAccount.auth.pass = crypt.decrypt(mailAccount.auth.pass);
+            const transport = nodemailer.createTransport(mailAccount);
 
-        transport.sendMail(this, (error, info) => {
-            if (error) {
-                console.log(error);
-                callback(false);
-            } else {
-                console.log('Message sent: ' + info.response);
-                callback(this, true);
-            }
+            // this.text = JSON.stringify(this);
+
+            transport.sendMail(this, (error, info) => {
+                if (error) {
+                    console.log(error);
+                    callback(false);
+                } else {
+                    console.log('Message sent: ' + info.response);
+                    callback(this, true);
+                }
+            });
+
         });
     }
 

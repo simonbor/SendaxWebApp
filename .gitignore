@@ -3,9 +3,7 @@ appData/*.json
 bin
 obj
 *.txt
-*.txt_
 Scripts
 .vscode
 tsconfig.json
 *.njsproj
-*.njsproj_

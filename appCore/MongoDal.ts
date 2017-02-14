@@ -8,14 +8,9 @@ export namespace DataBase {
     let uri = process.env.MLAB_SENDAX_URI;
 
     export enum DbCollection {
-        Orders = <any>"Orders", // 
-        Users = <any>"Users"    // { token: 0, type: 'active', mailConfig: { service: 'Gmail', auth: { user: 'simonbor.bell@gmail.com', pass: 'password' } } };
+        Orders = <any>"Orders", 
+        Users = <any>"Users"
     };
-
-    export enum UserType {
-        inactive = 0,
-        active = 1
-    }
 
     mongodb.MongoClient.connect(uri, function(err, dbMongoLab) {
         if (!err) {
@@ -63,17 +58,29 @@ export namespace DataBase {
         });
     };
 
+    // TODO: replace the console.log with DI logging mechanism and remove the comment
     export function getUser(token: string, cb: any) {
-        // TODO: get the user doc by eToken field
-        db.collection(DbCollection.Users).findOne({ token: token }, function (err, doc) {
-            cb(doc);
-        });
+        try {
+            db.collection(DbCollection.Users).findOne({ token: token }, function (err, doc) {
+                err && console.log('getUser - ${err}');
+                cb(doc);
+            });
+        } catch (e) {
+            console.log('getUser - ${e.message}');
+        }
     };
 
-    export function eTokenWasUsed(eToken: string, cb: any):boolean {
-        // TODO: check the exists for eToken in the Orders collection
-
-        return true;
+    // check the exists for eToken in the Orders collection
+    // TODO: replace the console.log with DI logging mechanism and remove the comment
+    export function getOrder(token: string, cb: any) {
+        try {
+            db.collection(DbCollection.Orders).findOne({ token: token }, function (err, doc) {
+                err && console.log('getOrder - ${err}');
+                cb(doc);
+            });
+        } catch (e) {
+            console.log('getOrder - ${e.message}');
+        }
     };
 
 }

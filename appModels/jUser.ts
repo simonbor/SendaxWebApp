@@ -1,4 +1,21 @@
-﻿
+﻿// example
+/*
+{
+    "token": "0544777601",
+    "type": "Active",
+    "mailAccount": [
+        {
+            "default": true,
+            "service": "Gmail",
+            "auth": {
+                "user": "simonbor@gmail.com",
+                "pass": "83d80671a52e2da09db68cada9edb4b0"
+            }
+        }
+    ]
+};
+*/
+
 export enum UserType {
     Active,
     Inactive,
@@ -8,7 +25,7 @@ export enum UserType {
 export class MailAccountProvider {
     public default: boolean;
     public service: string;
-    public auth: JSON;          // the structure is - { user: 'the email address', pass: 'the pass' }
+    public auth: any;
 }
 
 export class User {

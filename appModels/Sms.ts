@@ -6,7 +6,7 @@ export class Sms extends Core.BaseProvider implements Core.IProvider {
         super(json);
     }
 
-    valid() {
+    public valid() {
         // perform base validation
         if (!super.valid()) {
             return false;
@@ -35,7 +35,7 @@ export class Sms extends Core.BaseProvider implements Core.IProvider {
         super.insert(cb);
     };
 
-    send(): void {
+    public send(cb: any): void {
         // TODO: here implement send SMS logic
     }
 
@@ -44,8 +44,8 @@ export class Sms extends Core.BaseProvider implements Core.IProvider {
         super.update();
     }
 
-    store(orderId): void {
+    store(callback: any): void {
         // update sent order
-        super.store(orderId);
+        super.store(this._id);
     }
 } 

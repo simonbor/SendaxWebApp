@@ -1,11 +1,12 @@
 ﻿import Core = require('../appCore');
+import Models = require('../appModels');
 
 export enum RepeatPeriods {
     H = 60000 * 60,             //3,600,000 - hour
     D = 60000 * 60 * 24,        // 86,400,000 - day
     W = 60000 * 60 * 24 * 7,    // 604,800,000 - weak
-    //M = 60000 * 60 * 24 * 30,   // 2,592,000,000 - mounth
-    M = 60000,                  // one min
+    M = 60000 * 60 * 24 * 30,   // 2,592,000,000 - mounth
+    //M = 60000,                  // one min
     Y = 60000 * 60 * 24 * 365   // 31,536,000,000 - year
 };
 
@@ -52,23 +53,24 @@ export abstract class BaseProvider implements Core.IProvider {
         return true;
     }
 
-    insert(cb: any): any {
-
-        // TODO: add the logic for ask the DB for user type - test, registered active, registered inactive
-        // TODO: in case of inactive the insert DOES NOT HAPPEN!
-        // TODO: in case of inactive or returns test for the test user the func calls the callback with error
-
-
-
-        // Core.DataBase.insertNewOrder(this, cb);
-        //let mongo = Core.Mongo.getInstance;
-
-        // let uri = process.env.MLAB_SENDAX_URI;
-        // let mongo: Core.Mongo = new Core.Mongo(uri);
-
-        Core.DataBase.insertNewOrder(this, cb);
-
-        //mongo.insertNewOrder(this, cb);
+    insert(cb: any) {
+        Core.DataBase.getUser(this.token, (user: Models.User) => {
+            if (user) {
+                if (user.type.toString() === 'Active') { // TODO: check the issue with using the - Models.UserType.Active
+                    Core.DataBase.insertNewOrder(this, cb);
+                } else {
+                    cb({ error: `The user is ${user.type.toString()}` });
+                }
+            } else {
+                Core.DataBase.getOrder(this.token, (order) => {
+                    if (!order) {
+                        Core.DataBase.insertNewOrder(this, cb);
+                    } else {
+                        cb({ error: 'The token was used' });
+                    }
+                });
+            }
+        });
     }
 
     send(callback: any) {};
@@ -76,7 +78,7 @@ export abstract class BaseProvider implements Core.IProvider {
     // update
     update(): any {
 
-        // TODO: if the user is test user make the equal to true and leave the func
+        // TODO: if the user is test user, initial sent with true value and leave the func
 
         this.repeated =++ this.repeated || 0;
 
@@ -90,6 +92,8 @@ export abstract class BaseProvider implements Core.IProvider {
         } else if (this.repeat && this.repeat === "0") {
             this.sent = true;
         }
+
+        // TODO: here addition check of the user type and if it is equal to test set the sent to true
     }
 
     // store

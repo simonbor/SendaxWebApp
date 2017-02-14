@@ -1,31 +1,27 @@
-﻿const express: any = require("express");
-import cfg = require('./appConfig');
-import Core = require('./appCore');
-
-const app: any = express();
-const port: number = process.env.PORT || 3000;
-
+"use strict";
+var express = require("express");
+var cfg = require('./appConfig');
+var Core = require('./appCore');
+var app = express();
+var port = process.env.PORT || 3000;
 //--------------------------------------
 // Express Routers
 //--------------------------------------
-const mailRouter: any = require("./appRouters/AppRouter");
+var mailRouter = require("./appRouters/AppRouter");
 app.use("/mail", mailRouter);
-const smsRouter: any = require("./appRouters/AppRouter");
+var smsRouter = require("./appRouters/AppRouter");
 app.use("/sms", smsRouter);
-
-app.get("/", (req: any, res: any) => {
+app.get("/", function (req, res) {
     res.send("<b>Wellcome to Sendax Messaging System</b><p>Fix your request for send a message</p>");
 });
-
 //--------------------------------------
 // the Loop Sending mechanism
 //--------------------------------------
 function loop(delay) {
-    Core.Sender.sendAll((sendResult: any) => console.log('Performed ' + sendResult + ' orders'));
+    Core.Sender.sendAll(function (sendResult) { return console.log('Performed ' + sendResult + ' orders'); });
     setTimeout(loop, delay * 1000, delay);
 }
-
-const delay = 30;
+var delay = 30;
 cfg.app.active && setTimeout(loop, delay * 1000, delay);
-
 app.listen(port);
+//# sourceMappingURL=server.js.map
