@@ -1,5 +1,5 @@
 ﻿let mongodb = require('mongodb');
-import Core = require('../appCore');
+import Core = require('./index');
 
 export namespace DataBase {
 
