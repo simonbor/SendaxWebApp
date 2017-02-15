@@ -1,5 +1,6 @@
 "use strict";
 var mongodb = require('mongodb');
+//import Core = require('./index');
 var DataBase;
 (function (DataBase) {
     var db;
