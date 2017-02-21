@@ -1,3 +1,3 @@
 ﻿# SendaxWebApp
 
-Scheduler sending messages over Internet
+Sending scheduled messages over the Internet by simple HTTP request
