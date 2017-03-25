@@ -19,19 +19,19 @@ var BaseProvider = (function () {
         this.token = doc.token;
         this.from = doc.from;
         this.to = typeof doc.to === "string" ? doc.to.split(',') : doc.to; // this.to is always Array
-        this.time = parseInt(doc.time);
+        this.delay = parseInt(doc.delay);
         this.repeat = doc.repeat;
         this.subject = doc.subject;
         this.text = doc.text;
         this.html = doc.html;
-        this.timeToSend = doc.timeToSend && typeof doc.timeToSend === "number" ? doc.timeToSend : parseInt(doc.time) + new Date().getTime();
+        this.timeToSend = doc.timeToSend && typeof doc.timeToSend === "number" ? doc.timeToSend : parseInt(doc.delay) + new Date().getTime();
         this.sent = typeof doc.sent !== "undefined" ? doc.sent : this.sent;
         this.repeated = doc.repeated && typeof (doc.repeated) == "number" ? doc.repeated : this.repeated;
     }
     // validate only and only the HTTP request structure
     BaseProvider.prototype.valid = function () {
-        // this.time is should be positive whole number
-        if (this.time < 0) {
+        // this.delay is should be positive whole number
+        if (this.delay < 0) {
             return false;
         }
         return true;

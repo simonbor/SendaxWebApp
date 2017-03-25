@@ -25,7 +25,7 @@ var Routers;
         res.send("<b>Wellcome to Sendax Messaging System</b><p>Fix your request for send a message</p>");
     });
     // full GET
-    Routers.router.get("/:token/:from/:to/:time/:repeat/:subject/:text", function (req, res) {
+    Routers.router.get("/:token/:from/:to/:delay/:repeat/:subject/:text", function (req, res) {
         var order = createInstance(req.baseUrl.slice(1), req.params);
         if (order.valid()) {
             processRequest(order, function (result) {

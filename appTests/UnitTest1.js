@@ -35,10 +35,10 @@ function baseProviderUpdateTest() {
         return Test;
     }(Core.BaseProvider));
     var testOrders = [
-        new Test({ type: 'Test', time: 100, repeat: '0' }),
-        new Test({ type: 'Test', time: 100, repeat: 'h5' }),
-        new Test({ type: 'Test', time: 100, repeat: 'w2' }),
-        new Test({ type: 'Test', time: 0, repeat: 'x666' })
+        new Test({ type: 'Test', delay: 100, repeat: '0' }),
+        new Test({ type: 'Test', delay: 100, repeat: 'h5' }),
+        new Test({ type: 'Test', delay: 100, repeat: 'w2' }),
+        new Test({ type: 'Test', delay: 0, repeat: 'x666' })
     ];
     testOrders[0].update();
     testOrders[1].update();
@@ -51,7 +51,7 @@ function baseProviderUpdateTest() {
     assert.ok(testOrders[2].repeated === 2, "testOrders[2] - After twice running update() the 'repeated' field is should be twice incremented");
     assert.ok(testOrders[2].timeToSend - new Date().getTime() === Core.RepeatPeriods.W, "testOrders[2] - The timeToSend is should be set to RepeatPeriods.W + Date().getTime()");
     assert.ok(testOrders[2].sent, "testOrders[2] - The sent field after two update() calls is should be true");
-    assert.ok(testOrders[3].repeated === 1 && testOrders[3].timeToSend === (new Date().getTime() + testOrders[3].time), "testOrders[3] - Repeated incremented and the timeToSend == time + NOW");
+    assert.ok(testOrders[3].repeated === 1 && testOrders[3].timeToSend === (new Date().getTime() + testOrders[3].delay), "testOrders[3] - Repeated incremented and the timeToSend == delay + NOW");
 }
 exports.baseProviderUpdateTest = baseProviderUpdateTest;
 // ------------------------------------------

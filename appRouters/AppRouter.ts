@@ -30,7 +30,7 @@ namespace Routers {
         });
 
     // full GET
-    router.get("/:token/:from/:to/:time/:repeat/:subject/:text",
+    router.get("/:token/:from/:to/:delay/:repeat/:subject/:text",
         (req: any, res: any) => {
             var order: Core.IProvider = createInstance(req.baseUrl.slice(1), req.params);
             
