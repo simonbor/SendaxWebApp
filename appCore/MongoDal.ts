@@ -43,12 +43,12 @@ export namespace DataBase {
         try{
             db.collection(DbCollection.Orders).find(params).toArray((err, docs: any) => {
                 // TODO: replace the console.log with DI logging mechanism
-                err && console.log('findOrdersToSend - ${err}');
+                err && console.log(`findOrdersToSend - ${err}`);
                 cb(docs || []);
             });
         } catch(e) {
             // TODO: replace the console.log with DI logging mechanism
-            console.log('findOrdersToSend - ${e.message}');
+            console.log(`findOrdersToSend - ${e.message}`);
         }
     };
 
@@ -62,11 +62,11 @@ export namespace DataBase {
     export function getUser(token: string, cb: any) {
         try {
             db.collection(DbCollection.Users).findOne({ token: token }, function (err, doc) {
-                err && console.log('getUser - ${err}');
+                err && console.log(`getUser - ${err}`);
                 cb(doc);
             });
         } catch (e) {
-            console.log('getUser - ${e.message}');
+            console.log(`getUser - ${e.message}`);
         }
     };
 
@@ -75,11 +75,11 @@ export namespace DataBase {
     export function getOrder(token: string, cb: any) {
         try {
             db.collection(DbCollection.Orders).findOne({ token: token }, function (err, doc) {
-                err && console.log('getOrder - ${err}');
+                err && console.log(`getOrder - ${err}`);
                 cb(doc);
             });
         } catch (e) {
-            console.log('getOrder - ${e.message}');
+            console.log(`getOrder - ${e.message}`);
         }
     };
 

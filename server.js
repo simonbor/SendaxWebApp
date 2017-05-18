@@ -4,10 +4,6 @@ var cfg = require('./appConfig');
 var Core = require('./appCore');
 var app = express();
 var port = process.env.PORT || 3000;
-//--------------------------------------
-// Express Routers
-//--------------------------------------
-
 // Add headers
 app.use(function (req, res, next) {
     // Website you wish to allow to connect
@@ -22,7 +18,9 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
-
+//--------------------------------------
+// Express Routers
+//--------------------------------------
 var mailRouter = require("./appRouters/AppRouter");
 app.use("/mail", mailRouter);
 var smsRouter = require("./appRouters/AppRouter");
@@ -31,13 +29,15 @@ app.get("/", function (req, res) {
     res.send("<b>Wellcome to Sendax Messaging System</b><p>Fix your request for send a message</p>");
 });
 //--------------------------------------
-// the Loop Sending mechanism
+// the Loop Sending mechanism - delay 30 * 1000 == half minute
 //--------------------------------------
-function loop(delay) {
-    Core.Sender.sendAll(function (sendResult) { return console.log('Performed ' + sendResult + ' orders'); });
-    setTimeout(loop, delay * 1000, delay);
-}
-var delay = 30;
-cfg.app.active && setTimeout(loop, delay * 1000, delay);
+var loop = function (delay) {
+    if (cfg.app.active) {
+        Core.Sender.sendAll(function (sendResult) { return console.log("Performed " + sendResult + " orders"); });
+        setTimeout(loop, delay * 1000, delay);
+    }
+};
+var delay = 5;
+setTimeout(loop, delay * 1000, delay);
 app.listen(port);
 //# sourceMappingURL=server.js.map

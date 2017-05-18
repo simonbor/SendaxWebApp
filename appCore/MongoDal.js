@@ -42,13 +42,13 @@ var DataBase;
         try {
             db.collection(DbCollection.Orders).find(params).toArray(function (err, docs) {
                 // TODO: replace the console.log with DI logging mechanism
-                err && console.log('findOrdersToSend - ${err}');
+                err && console.log("findOrdersToSend - " + err);
                 cb(docs || []);
             });
         }
         catch (e) {
             // TODO: replace the console.log with DI logging mechanism
-            console.log('findOrdersToSend - ${e.message}');
+            console.log("findOrdersToSend - " + e.message);
         }
     }
     DataBase.findOrdersToSend = findOrdersToSend;
@@ -64,12 +64,12 @@ var DataBase;
     function getUser(token, cb) {
         try {
             db.collection(DbCollection.Users).findOne({ token: token }, function (err, doc) {
-                err && console.log('getUser - ${err}');
+                err && console.log("getUser - " + err);
                 cb(doc);
             });
         }
         catch (e) {
-            console.log('getUser - ${e.message}');
+            console.log("getUser - " + e.message);
         }
     }
     DataBase.getUser = getUser;
@@ -79,12 +79,12 @@ var DataBase;
     function getOrder(token, cb) {
         try {
             db.collection(DbCollection.Orders).findOne({ token: token }, function (err, doc) {
-                err && console.log('getOrder - ${err}');
+                err && console.log("getOrder - " + err);
                 cb(doc);
             });
         }
         catch (e) {
-            console.log('getOrder - ${e.message}');
+            console.log("getOrder - " + e.message);
         }
     }
     DataBase.getOrder = getOrder;
