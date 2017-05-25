@@ -15,7 +15,7 @@ var Routers;
     var processRequest = function (order, callback) {
         order.insert(function (saveResult) {
             Core.Sender.sendAll(function (sendResult) {
-                console.log('Performed ' + sendResult + ' orders');
+                console.log("Performed " + sendResult + " orders");
                 callback(saveResult);
             });
         });

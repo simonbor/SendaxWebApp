@@ -1,6 +1,8 @@
 ﻿{
   "app": {
-    "active": true
+    "cycleSend": true,
+    "cycleDelay": 30,
+    "demoMode": false
   },
 	"defUser": {
 		"token": 0, 

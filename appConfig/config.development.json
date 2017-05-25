@@ -1,7 +1,9 @@
 ﻿{
-	"app": {
-		"active": true
-	},
+  "app": {
+    "cycleSend": false,
+    "cycleDelay": 30,
+    "demoMode": false
+  },
 	"defUser": {
 		"token": 0, 
 		"type": "Active", 

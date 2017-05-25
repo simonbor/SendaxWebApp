@@ -5,10 +5,18 @@ import Core = require('./appCore');
 const app: any = express();
 const port: number = process.env.PORT || 3000;
 
-// Add headers
-app.use((req, res, next) => {
+//--------------------------------------
+// Cross domain settings 
+// TODO: take the code to external module
+//--------------------------------------
+app.use(function (req, res, next) {
+
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+    var allowedOrigins = ["http://localhost:4200", "http://sendax-post.herokuapp.com"];
+    if (allowedOrigins.indexOf(req.headers.origin) > -1) {
+        res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
+    }
+    // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     // Request headers you wish to allow
@@ -33,16 +41,17 @@ app.get("/", (req: any, res: any) => {
 });
 
 //--------------------------------------
-// the Loop Sending mechanism - delay 30 * 1000 == half minute
+// the Loop Sending mechanism - delay - seconds, default - half minute
 //--------------------------------------
-let loop = delay => {
-    if(cfg.app.active) {
+const cycleSend = cfg.app.cycleSend;
+const cycleDalay = cfg.app.cycleDalay;
+
+const loop = (delay) => {
+    if (cycleSend) {
         Core.Sender.sendAll((sendResult: any) => console.log(`Performed ${sendResult} orders`));
         setTimeout(loop, delay * 1000, delay);
     }
 };
-// TODO: move the delay to config
-const delay = 30;
-setTimeout(loop, delay * 1000, delay);
+setTimeout(loop, cycleDalay * 1000, cycleDalay);
 
 app.listen(port);

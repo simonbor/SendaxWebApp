@@ -4,10 +4,17 @@ var cfg = require('./appConfig');
 var Core = require('./appCore');
 var app = express();
 var port = process.env.PORT || 3000;
-// Add headers
+//--------------------------------------
+// Cross domain settings 
+// TODO: take the code to external module
+//--------------------------------------
 app.use(function (req, res, next) {
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+    var allowedOrigins = ["http://localhost:4200", "http://asendax.herokuapp.com"];
+    if (allowedOrigins.indexOf(req.headers.origin) > -1) {
+        res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
+    }
+    // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     // Request headers you wish to allow
@@ -29,15 +36,16 @@ app.get("/", function (req, res) {
     res.send("<b>Wellcome to Sendax Messaging System</b><p>Fix your request for send a message</p>");
 });
 //--------------------------------------
-// the Loop Sending mechanism - delay 30 * 1000 == half minute
+// the Loop Sending mechanism - delay - seconds, default - half minute
 //--------------------------------------
+var cycleSend = cfg.app.cycleSend;
+var cycleDalay = cfg.app.cycleDalay;
 var loop = function (delay) {
-    if (cfg.app.active) {
+    if (cycleSend) {
         Core.Sender.sendAll(function (sendResult) { return console.log("Performed " + sendResult + " orders"); });
         setTimeout(loop, delay * 1000, delay);
     }
 };
-var delay = 5;
-setTimeout(loop, delay * 1000, delay);
+setTimeout(loop, cycleDalay * 1000, cycleDalay);
 app.listen(port);
 //# sourceMappingURL=server.js.map

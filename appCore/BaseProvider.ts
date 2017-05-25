@@ -1,5 +1,6 @@
-﻿import Core = require('../appCore');
-import Models = require('../appModels');
+﻿import Core = require("../appCore");
+import Models = require("../appModels");
+import cfg = require("../appConfig");
 
 export enum RepeatPeriods {
     H = 60000 * 60,             //3,600,000 - hour
@@ -61,14 +62,17 @@ export abstract class BaseProvider implements Core.IProvider {
                 } else {
                     cb({ error: `The user is ${user.type.toString()}` });
                 }
+            } else if (cfg.app.demoMode) {
+                Core.DataBase.getOrder(this.token,
+                    (order) => {
+                        if (!order) {
+                            Core.DataBase.insertNewOrder(this, cb);
+                        } else {
+                            cb({ error: "The token was used" });
+                        }
+                    });
             } else {
-                Core.DataBase.getOrder(this.token, (order) => {
-                    if (!order) {
-                        Core.DataBase.insertNewOrder(this, cb);
-                    } else {
-                        cb({ error: 'The token was used' });
-                    }
-                });
+                cb({ error: "Demo mode is off. For send login to the system" });
             }
         });
     }

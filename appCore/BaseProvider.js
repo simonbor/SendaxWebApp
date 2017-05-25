@@ -1,5 +1,6 @@
 "use strict";
-var Core = require('../appCore');
+var Core = require("../appCore");
+var cfg = require("../appConfig");
 (function (RepeatPeriods) {
     RepeatPeriods[RepeatPeriods["H"] = 3600000] = "H";
     RepeatPeriods[RepeatPeriods["D"] = 86400000] = "D";
@@ -47,15 +48,18 @@ var BaseProvider = (function () {
                     cb({ error: "The user is " + user.type.toString() });
                 }
             }
-            else {
+            else if (cfg.app.demoMode) {
                 Core.DataBase.getOrder(_this.token, function (order) {
                     if (!order) {
                         Core.DataBase.insertNewOrder(_this, cb);
                     }
                     else {
-                        cb({ error: 'The token was used' });
+                        cb({ error: "The token was used" });
                     }
                 });
+            }
+            else {
+                cb({ error: "Demo mode is off. For send login to the system" });
             }
         });
     };
