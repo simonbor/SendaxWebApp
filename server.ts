@@ -52,6 +52,6 @@ const loop = (delay) => {
         setTimeout(loop, delay * 1000, delay);
     }
 };
-//setTimeout(loop, cycleDalay * 1000, cycleDalay);
+setTimeout(loop, cycleDalay * 1000, cycleDalay);
 
 app.listen(port);
