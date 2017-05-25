@@ -10,7 +10,7 @@ var port = process.env.PORT || 3000;
 //--------------------------------------
 app.use(function (req, res, next) {
     // Website you wish to allow to connect
-    var allowedOrigins = ["http://localhost:4200", "http://asendax.herokuapp.com"];
+    var allowedOrigins = ["http://localhost:4200", "https://sendax-post.herokuapp.com"];
     if (allowedOrigins.indexOf(req.headers.origin) > -1) {
         res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
     }
