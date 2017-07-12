@@ -1,6 +1,6 @@
 ﻿{
   "app": {
-    "cycleSend": false,
+    "cycleSend": true,
     "cycleDelay": 30,
     "demoMode": false
   },

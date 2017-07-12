@@ -22,6 +22,7 @@ exports.cryptoPasswordTest = cryptoPasswordTest;
 // BaseProviderUpdate
 // ------------------------------------------
 function baseProviderUpdateTest() {
+    var timeGap = 5;
     var Test = (function (_super) {
         __extends(Test, _super);
         function Test() {
@@ -46,12 +47,14 @@ function baseProviderUpdateTest() {
     testOrders[2].update();
     testOrders[3].update();
     assert.ok(testOrders[0].repeated === 1, "testOrders[0] - After running update() the 'repeated' field is should be incremented");
-    assert.equal(testOrders[0].sent, true, "testOrders[0] - sent field should be true after the update");
-    assert.ok(testOrders[1].timeToSend - new Date().getTime() === Core.RepeatPeriods.H, "testOrders[1] - The timeToSend is should be set to RepeatPeriods.H + Date().getTime()");
+    assert.equal(testOrders[0].sent, true, 'testOrders[0] - sent field should be true after the update');
+    assert.ok(testOrders[1].timeToSend - new Date().getTime() <= Core.RepeatPeriods.H, 'testOrders[1] - The timeToSend is should be set to RepeatPeriods.H + Date().getTime()');
+    assert.ok((testOrders[1].timeToSend - new Date().getTime() + timeGap) > Core.RepeatPeriods.H, 'testOrders[1] - The timeToSend is should be set to RepeatPeriods.H + Date().getTime()');
     assert.ok(testOrders[2].repeated === 2, "testOrders[2] - After twice running update() the 'repeated' field is should be twice incremented");
-    assert.ok(testOrders[2].timeToSend - new Date().getTime() === Core.RepeatPeriods.W, "testOrders[2] - The timeToSend is should be set to RepeatPeriods.W + Date().getTime()");
-    assert.ok(testOrders[2].sent, "testOrders[2] - The sent field after two update() calls is should be true");
-    assert.ok(testOrders[3].repeated === 1 && testOrders[3].timeToSend === (new Date().getTime() + testOrders[3].delay), "testOrders[3] - Repeated incremented and the timeToSend == delay + NOW");
+    assert.ok(testOrders[2].timeToSend - new Date().getTime() === Core.RepeatPeriods.W, 'testOrders[2] - The timeToSend is should be set to RepeatPeriods.W + Date().getTime()');
+    assert.ok(testOrders[2].sent, 'testOrders[2] - The sent field after two update() calls is should be true');
+    assert.ok(testOrders[3].repeated === 1 && testOrders[3].timeToSend <= (new Date().getTime() + testOrders[3].delay), 'testOrders[3] - Repeated incremented and the timeToSend == delay + NOW');
+    assert.ok(testOrders[3].repeated === 1 && (testOrders[3].timeToSend + timeGap) > (new Date().getTime() + testOrders[3].delay), 'testOrders[3] - Repeated incremented and the timeToSend == delay + NOW');
 }
 exports.baseProviderUpdateTest = baseProviderUpdateTest;
 // ------------------------------------------

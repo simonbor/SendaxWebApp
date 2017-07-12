@@ -44,7 +44,7 @@ app.get("/", (req: any, res: any) => {
 // the Loop Sending mechanism - delay - seconds, default - half minute
 //--------------------------------------
 const cycleSend = cfg.app.cycleSend;
-const cycleDalay = cfg.app.cycleDalay;
+const cycleDelay = cfg.app.cycleDelay;
 
 const loop = (delay) => {
     if (cycleSend) {
@@ -52,6 +52,6 @@ const loop = (delay) => {
         setTimeout(loop, delay * 1000, delay);
     }
 };
-setTimeout(loop, cycleDalay * 1000, cycleDalay);
+setTimeout(loop, cycleDelay * 1000, cycleDelay);
 
 app.listen(port);

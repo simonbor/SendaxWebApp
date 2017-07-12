@@ -51,6 +51,17 @@ export abstract class BaseProvider implements Core.IProvider {
             return false;
         }
 
+        // this.repeat[0] is should be [HDWMY]
+        if (!/^[HDWMY]$/.test(this.repeat[0].toUpperCase())) {
+            return false;
+        }
+
+        // this.repeat is should contain number less then 12
+        const reqRepeat = parseInt(this.repeat.match(/\d+/)[0]);
+        if (reqRepeat < 0 && reqRepeat > 12) {
+            return false;
+        }
+
         return true;
     }
 

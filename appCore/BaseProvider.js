@@ -5,8 +5,8 @@ var cfg = require("../appConfig");
     RepeatPeriods[RepeatPeriods["H"] = 3600000] = "H";
     RepeatPeriods[RepeatPeriods["D"] = 86400000] = "D";
     RepeatPeriods[RepeatPeriods["W"] = 604800000] = "W";
-    RepeatPeriods[RepeatPeriods["M"] = 2592000000] = "M";
-    //M = 60000,                  // one min
+    //M = 60000 * 60 * 24 * 30,   // 2,592,000,000 - mounth
+    RepeatPeriods[RepeatPeriods["M"] = 60000] = "M";
     RepeatPeriods[RepeatPeriods["Y"] = 31536000000] = "Y"; // 31,536,000,000 - year
 })(exports.RepeatPeriods || (exports.RepeatPeriods = {}));
 var RepeatPeriods = exports.RepeatPeriods;
@@ -33,6 +33,15 @@ var BaseProvider = (function () {
     BaseProvider.prototype.valid = function () {
         // this.delay is should be positive whole number
         if (this.delay < 0) {
+            return false;
+        }
+        // this.repeat[0] is should be [HDWMY]
+        if (!/^[HDWMY]$/.test(this.repeat[0].toUpperCase())) {
+            return false;
+        }
+        // this.repeat is should contain number less then 12
+        var reqRepeat = parseInt(this.repeat.match(/\d+/)[0]);
+        if (reqRepeat < 0 && reqRepeat > 12) {
             return false;
         }
         return true;
