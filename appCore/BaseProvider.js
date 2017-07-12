@@ -5,8 +5,8 @@ var cfg = require("../appConfig");
     RepeatPeriods[RepeatPeriods["H"] = 3600000] = "H";
     RepeatPeriods[RepeatPeriods["D"] = 86400000] = "D";
     RepeatPeriods[RepeatPeriods["W"] = 604800000] = "W";
-    //M = 60000 * 60 * 24 * 30,   // 2,592,000,000 - mounth
-    RepeatPeriods[RepeatPeriods["M"] = 60000] = "M";
+    RepeatPeriods[RepeatPeriods["M"] = 2592000000] = "M";
+    //M = 60000,                  // one min
     RepeatPeriods[RepeatPeriods["Y"] = 31536000000] = "Y"; // 31,536,000,000 - year
 })(exports.RepeatPeriods || (exports.RepeatPeriods = {}));
 var RepeatPeriods = exports.RepeatPeriods;
