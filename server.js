@@ -10,7 +10,7 @@ var port = process.env.PORT || 3000;
 //--------------------------------------
 app.use(function (req, res, next) {
     // Website you wish to allow to connect
-    var allowedOrigins = ["http://localhost:4200", "http://sendax-post.herokuapp.com"];
+    var allowedOrigins = ["http://localhost:4200", "https://sendax-post.herokuapp.com"];
     if (allowedOrigins.indexOf(req.headers.origin) > -1) {
         res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
     }
@@ -39,13 +39,13 @@ app.get("/", function (req, res) {
 // the Loop Sending mechanism - delay - seconds, default - half minute
 //--------------------------------------
 var cycleSend = cfg.app.cycleSend;
-var cycleDelay = cfg.app.cycleDelay;
+var cycleDalay = cfg.app.cycleDalay;
 var loop = function (delay) {
     if (cycleSend) {
         Core.Sender.sendAll(function (sendResult) { return console.log("Performed " + sendResult + " orders"); });
         setTimeout(loop, delay * 1000, delay);
     }
 };
-setTimeout(loop, cycleDelay * 1000, cycleDelay);
+setTimeout(loop, cycleDalay * 1000, cycleDalay);
 app.listen(port);
 //# sourceMappingURL=server.js.map
