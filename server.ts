@@ -55,3 +55,7 @@ const loop = (delay) => {
 setTimeout(loop, cycleDelay * 1000, cycleDelay);
 
 app.listen(port);
+
+// 1. For repair the project tests I need inject the mongoose  - http://rob.conery.io/2012/02/24/testing-your-model-with-mocha-mongo-and-nodejs/
+// 2. Organize the project structure - https://github.com/basarat/typescript-book/blob/master/docs/quick/nodejs.md
+// 3. Extend the app by add the Telegram support - https://core.telegram.org/api/obtaining_api_id
