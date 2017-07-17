@@ -7,17 +7,21 @@
     "name": "Simon"
   },
   "scripts": {
-    "start": "npm run build:live",
+    "start": "node server.js",
     "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./server.ts"
   },
   "dependencies": {
     "body-parser": "1.9.3",
     "express": "~4.9.0",
     "mongodb": "^2.2.30",
+    "mongoose": "^4.11.1",
     "nodemailer": "^2.7.0",
+    "q": "^1.5.0",
     "validator": "^6.2.0"
   },
   "devDependencies": {
+    "@types/mongodb": "^2.2.7",
+    "@types/mongoose": "^4.7.18",
     "@types/node": "^7.0.35",
     "assert": "^1.4.1",
     "nodemon": "^1.11.0",
