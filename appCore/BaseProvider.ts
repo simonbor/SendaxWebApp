@@ -51,7 +51,7 @@ export abstract class BaseProvider implements Core.IProvider {
             return false;
         }
 
-        // this.repeat[0] is should be [HDWMY]
+        // this.repeat[0] is should be H, D, W, M, Y or 0
         if (!/^[HDWMY0]$/.test(this.repeat[0].toUpperCase())) {
             return false;
         }
