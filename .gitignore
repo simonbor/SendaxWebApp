@@ -7,3 +7,22 @@ Scripts
 .vscode
 tsconfig.json
 *.njsproj
+*.js.map
+
+
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+*.swp
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Ignore built ts files
+dist/**/*
