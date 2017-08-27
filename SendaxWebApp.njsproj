@@ -55,7 +55,6 @@
     <TypeScriptCompile Include="appModels\Sms.ts" />
     <TypeScriptCompile Include="appRouters\AppRouter.ts" />
     <TypeScriptCompile Include="appTests\UnitTest1.ts" />
-    <TypeScriptCompile Include="src\interfaces\user.ts" />
     <TypeScriptCompile Include="src\models\model.ts" />
     <TypeScriptCompile Include="src\models\user.ts" />
     <TypeScriptCompile Include="src\schemas\user.ts" />
@@ -66,8 +65,6 @@
     <Folder Include="appModels" />
     <Folder Include="appRouters" />
     <Folder Include="appTests" />
-    <Folder Include="src\" />
-    <Folder Include="src\interfaces\" />
     <Folder Include="src\models\" />
     <Folder Include="src\schemas\" />
   </ItemGroup>
