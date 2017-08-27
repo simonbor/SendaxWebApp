@@ -1,14 +1,10 @@
 node_modules
-appData/*.json
 bin
 obj
 *.txt
 Scripts
 .vscode
-tsconfig.json
-*.njsproj
 *.js.map
-
 
 lib-cov
 *.seed
