@@ -37,7 +37,7 @@ const smsRouter: any = require("./appRouters/AppRouter");
 app.use("/sms", smsRouter);
 
 app.get("/", (req: any, res: any) => {
-    res.send("<b>Wellcome to Sendax Messaging System</b><p>Fix your request for send a message</p>");
+    res.send("<b>Welcome to Sendax Messaging System</b><p>Fix your request for send a message</p>");
 });
 
 //--------------------------------------
@@ -57,6 +57,6 @@ setTimeout(loop, cycleDelay * 1000, cycleDelay);
 app.listen(port);
 
 // 1. For repair the project tests I need inject the mongoose  - http://rob.conery.io/2012/02/24/testing-your-model-with-mocha-mongo-and-nodejs/
-// 2. Organize the project structure - https://github.com/basarat/typescript-book/blob/master/docs/quick/nodejs.md
+// 2. -- Organize the project structure - https://github.com/basarat/typescript-book/blob/master/docs/quick/nodejs.md
 // 3. Extend the app by add the Telegram support - https://core.telegram.org/api/obtaining_api_id
 // 4. Add history and active orders
