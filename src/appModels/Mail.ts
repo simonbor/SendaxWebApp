@@ -40,7 +40,7 @@ export class Mail extends Core.BaseProvider implements Core.IProvider {
         const cfg: any = require('../appConfig');
 
         Core.DataBase.getUser(this.token, (user: Models.User) => {
-            // retrive the default user from config for test sending
+            // retrieve the default user from config for test sending
             user = user || cfg.defUser;
 
             let mailAccount: any = JSON.parse(JSON.stringify(user.mailAccount[0]));

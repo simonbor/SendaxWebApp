@@ -57,8 +57,12 @@ export abstract class BaseProvider implements Core.IProvider {
         }
 
         // this.repeat is should contain number less then 12
-        const reqRepeat = parseInt(this.repeat.match(/\d+/)[0]);
-        if (reqRepeat < 0 && reqRepeat > 12) {
+        let regExp:any = this.repeat.match(/\d+/);
+        if (!regExp || regExp.length < 1) {
+            return false;
+        }
+        const reqRepeat = parseInt(regExp[0]);
+        if (reqRepeat < 0 || reqRepeat > 12) {
             return false;
         }
 
