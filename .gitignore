@@ -6,4 +6,3 @@ obj
 Scripts
 .vscode
 tsconfig.json
-*.njsproj
