@@ -5,4 +5,4 @@ obj
 *.txt
 Scripts
 .vscode
-tsconfig.json
+.vs
