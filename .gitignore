@@ -5,6 +5,7 @@ obj
 Scripts
 .vscode
 *.js.map
+package-lock.json
 
 lib-cov
 *.seed
@@ -21,4 +22,4 @@ lib-cov
 Thumbs.db
 
 # Ignore built ts files
-dist/**/*
+# dist/**/*
