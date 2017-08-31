@@ -5,5 +5,7 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./Sms"));
 __export(require("./Mail"));
-__export(require("./jUser"));
+//export * from "./jUser";
+var jUser_1 = require("./jUser");
+exports.User = jUser_1.default;
 //# sourceMappingURL=index.js.map

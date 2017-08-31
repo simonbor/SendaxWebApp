@@ -1,12 +1,13 @@
 ﻿import Core = require("../appCore");
 import Models = require("../appModels");
+import { User, UserModel, AuthToken } from "../appModels";
 import cfg = require("../appConfig");
 
 export enum RepeatPeriods {
     H = 60000 * 60,             //3,600,000 - hour
     D = 60000 * 60 * 24,        // 86,400,000 - day
     W = 60000 * 60 * 24 * 7,    // 604,800,000 - weak
-    M = 60000 * 60 * 24 * 30,   // 2,592,000,000 - mounth
+    M = 60000 * 60 * 24 * 30,   // 2,592,000,000 - mounts
     //M = 60000,                  // one min
     Y = 60000 * 60 * 24 * 365   // 31,536,000,000 - year
 };
@@ -70,7 +71,7 @@ export abstract class BaseProvider implements Core.IProvider {
     }
 
     insert(cb: any) {
-        Core.DataBase.getUser(this.token, (user: Models.User) => {
+        Core.DataBase.getUser(this.token, (user: UserModel) => {
             if (user) {
                 if (user.type.toString() === 'Active') { // TODO: check the issue with using the - Models.UserType.Active
                     Core.DataBase.insertNewOrder(this, cb);

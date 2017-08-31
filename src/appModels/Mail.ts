@@ -1,5 +1,6 @@
 ﻿import Core = require('../appCore');
 import Models = require('../appModels');
+import { User, UserModel, AuthToken } from "../appModels";
 
 export class Mail extends Core.BaseProvider implements Core.IProvider {
 
@@ -39,7 +40,7 @@ export class Mail extends Core.BaseProvider implements Core.IProvider {
         const crypt = require('../appCore/Crypt');
         const cfg: any = require('../appConfig');
 
-        Core.DataBase.getUser(this.token, (user: Models.User) => {
+        Core.DataBase.getUser(this.token, (user: UserModel) => {
             // retrieve the default user from config for test sending
             user = user || cfg.defUser;
 
