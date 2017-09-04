@@ -3,7 +3,7 @@ import Core = require('./BaseProvider');
 
 export namespace DataBase {
 
-    let db: any;
+    export let db: any;
     export let mongoConnected:boolean = false;
     let uri = process.env.MLAB_SENDAX_URI;
 

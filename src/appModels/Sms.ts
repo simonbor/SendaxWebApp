@@ -1,4 +1,7 @@
 ﻿import Core = require('../appCore');
+import * as mongoose from "mongoose"
+
+const schema = new mongoose.Schema({ firstName: String, lastName: String });
 
 export class Sms extends Core.BaseProvider implements Core.IProvider {
 
@@ -49,3 +52,6 @@ export class Sms extends Core.BaseProvider implements Core.IProvider {
         super.store(this._id);
     }
 } 
+
+schema.loadClass(Sms);
+var SmsModel = Core.DataBase.db.model('Sms', schema);

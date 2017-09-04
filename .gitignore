@@ -22,4 +22,4 @@ lib-cov
 Thumbs.db
 
 # Ignore built ts files
-# dist/**/*
+dist/**/*
