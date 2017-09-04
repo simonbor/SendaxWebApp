@@ -1,4 +1,4 @@
-﻿export * from "./BaseProvider"
+﻿export {default as BaseProvider, RepeatPeriods } from "./BaseProvider"
 export * from "./Factory"
 //export * from "./Dal"
 export * from "./Sender"

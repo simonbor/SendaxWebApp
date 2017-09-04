@@ -1,10 +1,10 @@
 ﻿import Models = require('../appModels');
 
-export interface IProvider {
+interface IBaseProvider {
     valid: () => boolean;       // check the order - validate only and only the HTTP request structure
     insert: (cb: any) => any;   // save the order
     send: (cb: any) => void;    // send the order
-    update: () => any;          // update sent order
+    updateOrder: () => any;          // update sent order
     store: (cb: any) => void;   // update sent order
 }
 
@@ -18,3 +18,7 @@ export class Activator {
         }
     }
 }
+
+
+import mongoose = require("mongoose");
+export interface IProvider extends IBaseProvider, mongoose.Document { }

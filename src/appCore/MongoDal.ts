@@ -1,5 +1,7 @@
 ﻿let mongodb = require('mongodb');
-import Core = require('./BaseProvider');
+//import { BaseProvider, RepeatPeriods } from './BaseProvider';
+import {default as BaseProvider, RepeatPeriods } from "./BaseProvider"
+//import Core = require('../appCore');
 
 export namespace DataBase {
 
@@ -52,7 +54,7 @@ export namespace DataBase {
         }
     };
 
-    export function updateSentOrder(order: Core.BaseProvider, callcack: any) {
+    export function updateSentOrder(order: BaseProvider, callcack: any) {
         db.collection(DbCollection.Orders).update({ _id: order._id }, { $set: { sent: order.sent, repeated: order.repeated, timeToSend: order.timeToSend } }, { upsert: true }, (err, numUpdated) => {
                 callcack(numUpdated);
         });

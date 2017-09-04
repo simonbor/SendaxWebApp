@@ -1,4 +1,4 @@
-﻿import Core = require('../appCore');
+﻿/*import Core = require('../appCore');
 
 export enum DbCollection {
     Orders = <any>"Orders",
@@ -102,4 +102,4 @@ export class DataBase {
         });
     };
 
-}
+}*/
