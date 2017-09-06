@@ -3,6 +3,7 @@ import Models = require("../appModels");
 import { User, UserModel, AuthToken } from "../appModels";
 import cfg = require("../appConfig");
 import * as mongoose from "mongoose"
+import { Document, Schema, Model, model} from "mongoose";
 
 export enum RepeatPeriods {
     H = 60000 * 60,             //3,600,000 - hour
@@ -13,9 +14,36 @@ export enum RepeatPeriods {
     Y = 60000 * 60 * 24 * 365   // 31,536,000,000 - year
 };
 
-const schema = new mongoose.Schema({ firstName: String, lastName: String });
+var BaseProviderSchema: Schema = new Schema({
+    type: String,
+    token: String,
+    from: String,
+    delay: Number,
+    to: String, //[],
+    repeat: String,
+    subject: String,
+    text: String,
+    html: String,
+    timeToSend: Number,
+    sent: Boolean, // = false,
+    repeated: Number // = 0
+}, { discriminatorKey: 'kind' });
 
-export abstract class BaseProvider implements Core.IProvider {
+BaseProviderSchema.pre("save", function(next) {
+  let now = new Date();
+  if (!this.createdAt) {
+    this.createdAt = now;
+  }
+  next();
+});
+BaseProviderSchema.methods.fullName = function(): string {
+  return (this.firstName.trim() + " " + this.lastName.trim());
+};
+
+export const BaseProvider: Model<Core.IProvider> = model<Core.IProvider>("BaseProvider", BaseProviderSchema);
+
+
+/*export abstract class BaseProvider implements Core.IProvider {
     public _id: string;
     public type: string;
     public token: string;
@@ -128,5 +156,4 @@ export abstract class BaseProvider implements Core.IProvider {
     };
 }
 
-schema.loadClass(BaseProvider);
-//var Person = db.model('Person', schema);
+*/
