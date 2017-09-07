@@ -1,4 +1,4 @@
-﻿import Dal = require('./MongoDal');
+﻿//import Dal = require('./MongoDal');
 import Factory = require('./Factory');
 
 export class Sender {
@@ -19,7 +19,7 @@ export class Sender {
 
     public static sendAll(cb: any): void {
         var orders = Array<Factory.IProvider>();
-        Dal.DataBase.findOrdersToSend((docs) => {
+        /* Dal.DataBase.findOrdersToSend((docs) => {
             for (var i = 0; i < docs.length; i++) {
                 orders[i] = Factory.Activator.createInstance(docs[i].type, docs[i]);
             }
@@ -29,6 +29,6 @@ export class Sender {
             } else {
                 cb(0); // orders for sending not found
             }
-        });
+        }); */
     }
 }

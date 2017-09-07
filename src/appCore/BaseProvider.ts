@@ -36,7 +36,7 @@ BaseProviderSchema.pre("save", function(next) {
   }
   next();
 });
-BaseProviderSchema.methods.fullName = function(): string {
+BaseProviderSchema.methods.valid = function(): string {
   return (this.firstName.trim() + " " + this.lastName.trim());
 };
 

@@ -1,4 +1,4 @@
-﻿let mongodb = require('mongodb');
+﻿/*let mongodb = require('mongodb');
 import Core = require('./BaseProvider');
 
 export namespace DataBase {
@@ -85,3 +85,4 @@ export namespace DataBase {
 
 }
 
+*/
