@@ -1,8 +1,16 @@
 ﻿import Core = require('../appCore');
 import Models = require('../appModels');
-import { User, UserModel, AuthToken } from "../appModels";
+//import { User, UserModel, AuthToken } from "../appModels";
+import { Document, Schema, Model, model} from "mongoose";
 
-export class Mail extends Core.BaseProvider implements Core.IProvider {
+export var Mail = Core.BaseProvider.discriminator('Mail',
+    new Schema({ 
+        //radius: Number 
+    }));
+
+//export const Mail: Model<Core.IProvider> = model<Core.IProvider>("Mail", MailSchema);
+
+/* export class Mail extends Core.BaseProvider implements Core.IProvider {
 
     constructor(json) {
         super(json);
@@ -73,3 +81,4 @@ export class Mail extends Core.BaseProvider implements Core.IProvider {
         super.store(this._id);
     }
 } 
+ */

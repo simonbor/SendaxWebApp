@@ -15,12 +15,12 @@ namespace Routers {
     };
 
     var processRequest = (order: Core.IProvider, callback: any) => {
-        order.insert((saveResult: any) => {                       // store the send order
-            Core.Sender.sendAll((sendResult: any) => {
-                console.log(`Performed ${sendResult} orders`);
-                callback(saveResult);
-            });
-        });
+        // order.insert((saveResult: any) => {                       // store the send order
+        //     Core.Sender.sendAll((sendResult: any) => {
+        //         console.log(`Performed ${sendResult} orders`);
+        //         callback(saveResult);
+        //     });
+        // });
     }
 
     // define home page route

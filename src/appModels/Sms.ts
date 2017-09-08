@@ -1,7 +1,13 @@
 ﻿import Core = require('../appCore');
 import * as mongoose from "mongoose"
+import { Document, Schema, Model, model} from "mongoose";
 
-export class Sms extends Core.BaseProvider implements Core.IProvider {
+export var Sms = Core.BaseProvider.discriminator('Sms',
+    new Schema({ 
+        //radius: Number 
+    }));
+
+/* export class Sms extends Core.BaseProvider implements Core.IProvider {
 
     constructor(json) {
         super(json);
@@ -51,3 +57,4 @@ export class Sms extends Core.BaseProvider implements Core.IProvider {
     }
 } 
 
+ */

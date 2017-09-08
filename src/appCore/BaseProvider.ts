@@ -14,7 +14,7 @@ export enum RepeatPeriods {
     Y = 60000 * 60 * 24 * 365   // 31,536,000,000 - year
 };
 
-var BaseProviderSchema: Schema = new Schema({
+export var BaseProviderSchema: Schema = new Schema({
     type: String,
     token: String,
     from: String,
@@ -37,7 +37,7 @@ BaseProviderSchema.pre("save", function(next) {
   next();
 });
 BaseProviderSchema.methods.valid = function(): string {
-  return (this.firstName.trim() + " " + this.lastName.trim());
+  return "validation completed"; // (this.firstName.trim() + " " + this.lastName.trim());
 };
 
 export const BaseProvider: Model<Core.IProvider> = model<Core.IProvider>("BaseProvider", BaseProviderSchema);
