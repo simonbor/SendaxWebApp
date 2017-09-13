@@ -19,14 +19,14 @@ export var BaseProviderSchema: Schema = new Schema({
     token: String,
     from: String,
     delay: Number,
-    to: String, //[],
+    to: [[String]], //[],
     repeat: String,
     subject: String,
     text: String,
     html: String,
     timeToSend: Number,
-    sent: Boolean, // = false,
-    repeated: Number // = 0
+    sent: {type:Boolean, default: false}, // = false,
+    repeated: {type:Number, default:0} // = 0
 }, { discriminatorKey: 'kind' });
 
 BaseProviderSchema.pre("save", function(next) {
@@ -36,8 +36,50 @@ BaseProviderSchema.pre("save", function(next) {
   }
   next();
 });
-BaseProviderSchema.methods.valid = function(): string {
-  return "validation completed"; // (this.firstName.trim() + " " + this.lastName.trim());
+
+BaseProviderSchema.methods.send = (callback: any) => {};
+
+BaseProviderSchema.methods.valid = function(): boolean {
+    // this.delay is should be positive whole number
+    if (this.delay < 0) {
+        return false;
+    }
+
+    // this.repeat[0] is should be H, D, W, M, Y or 0
+    if (!/^[HDWMY0]$/.test(this.repeat[0].toUpperCase())) {
+        return false;
+    }
+
+    // this.repeat is should contain number less then 12
+    let regExp:any = this.repeat.match(/\d+/);
+    if (!regExp || regExp.length < 1) {
+        return false;
+    }
+    const reqRepeat = parseInt(regExp[0]);
+    if (reqRepeat < 0 || reqRepeat > 12) {
+        return false;
+    }
+
+    return true;
+};
+
+BaseProviderSchema.methods.update = function(): any {
+    // TODO: if the user is test user, initial sent with true value and leave the func
+
+    this.repeated =++ this.repeated || 0;
+
+    if (this.repeat && this.repeat.length > 1 && /^[HDWMY]$/.test(this.repeat[0].toUpperCase()) && /^\d$/.test(this.repeat[1])) {
+        if (this.repeated < parseInt(this.repeat[1])) {
+            let repeatPeriods = RepeatPeriods[this.repeat[0].toUpperCase()];
+            this.timeToSend = new Date().getTime() + repeatPeriods;
+        } else {
+            this.sent = true;
+        }
+    } else if (this.repeat && this.repeat === "0") {
+        this.sent = true;
+    }
+
+    // TODO: here addition check of the user type and if it is equal to test set the sent to true
 };
 
 export const BaseProvider: Model<Core.IProvider> = model<Core.IProvider>("BaseProvider", BaseProviderSchema);

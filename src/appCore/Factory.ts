@@ -26,7 +26,6 @@ export class Activator {
     public static createInstance(type: string, jsonParams: any): IProvider {
         try {
             jsonParams.type = type; // type property chaining
-            console.log(new Models[type](jsonParams));
             return new Models[type](jsonParams);
         } catch (e) {
             return null;
