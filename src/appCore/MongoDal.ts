@@ -21,10 +21,10 @@ export namespace DataBase {
         };
     });
 
-    export function insertNewOrder(doc: any, callcack: any) {
+    export function insertNewOrder(doc: any, cb: any) {
         db.collection(DbCollection.Orders).insert(doc, (err, result) => {
             var res = err ? { error: err } : result;
-            callcack(res);
+            cb(res);
         });
     };
 
@@ -52,9 +52,9 @@ export namespace DataBase {
         }
     };
 
-    export function updateSentOrder(order: Core.BaseProvider, callcack: any) {
+    export function updateSentOrder(order: Core.BaseProvider, cb: any) {
         db.collection(DbCollection.Orders).update({ _id: order._id }, { $set: { sent: order.sent, repeated: order.repeated, timeToSend: order.timeToSend } }, { upsert: true }, (err, numUpdated) => {
-                callcack(numUpdated);
+                cb(numUpdated);
         });
     };
 

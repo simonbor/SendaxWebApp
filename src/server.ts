@@ -2,6 +2,10 @@
 import cfg = require('./appConfig');
 import Core = require('./appCore');
 
+var mongoose = require('mongoose');
+let uri = process.env.MLAB_SENDAX_URI;
+var promise = mongoose.connect(uri, { useMongoClient: true });
+
 const app: any = express();
 const port: number = process.env.PORT || 3000;
 
@@ -52,7 +56,7 @@ const loop = (delay) => {
         setTimeout(loop, delay * 1000, delay);
     }
 };
-setTimeout(loop, cycleDelay * 1000, cycleDelay);
+setTimeout(loop, 50, cycleDelay);
 
 app.listen(port);
 

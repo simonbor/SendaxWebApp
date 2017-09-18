@@ -26,7 +26,7 @@ namespace Routers {
     // define home page route
     router.get("/",
         (req: any, res: any) => {
-            res.send("<b>Wellcome to Sendax Messaging System</b><p>Fix your request for send a message</p>");
+            res.send("<b>Welcome to Sendax Messaging System</b><p>Fix your request for send a message</p>");
         });
 
     // full GET

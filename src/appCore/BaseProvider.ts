@@ -16,7 +16,7 @@ export enum RepeatPeriods {
 
 export var BaseProviderSchema: Schema = new Schema({
     type: String,
-    token: String,
+    token: {type: String, required: true, unique: true},
     from: String,
     delay: Number,
     to: [[String]], //[],

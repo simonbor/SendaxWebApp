@@ -57,10 +57,10 @@ test('Base Provider Update Test', () => {
     //console.log('testOrders[3].timeToSend: ' + testOrders[3].timeToSend);
 
     expect(testOrders[1].timeToSend - new Date().getTime()).toBeLessThanOrEqual(Core.RepeatPeriods.H); //, 'testOrders[1] - The timeToSend is should be set to RepeatPeriods.H + Date().getTime()');
-    expect(testOrders[1].timeToSend - new Date().getTime() + timeGap).toBeGreaterThan(Core.RepeatPeriods.H); //, 'testOrders[1] - The timeToSend is should be set to RepeatPeriods.H + Date().getTime()');
+    expect(testOrders[1].timeToSend - new Date().getTime() + timeGap).toBeGreaterThanOrEqual(Core.RepeatPeriods.H); //, 'testOrders[1] - The timeToSend is should be set to RepeatPeriods.H + Date().getTime()');
 
     expect(testOrders[2].repeated).toBe(2); // After twice running update() the 'repeated' field is should be twice incremented");
-    expect(testOrders[2].timeToSend - new Date().getTime() + timeGap).toBeGreaterThan(Core.RepeatPeriods.W); // The timeToSend is should be set to RepeatPeriods.W + Date().getTime()');
+    expect(testOrders[2].timeToSend - new Date().getTime() + timeGap).toBeGreaterThanOrEqual(Core.RepeatPeriods.W); // The timeToSend is should be set to RepeatPeriods.W + Date().getTime()');
     expect(testOrders[2].sent).toBeTruthy(); // The sent field after two update() calls is should be true');
 
     expect(testOrders[3].repeated).toBe(1); // Repeated incremented and the timeToSend == delay + NOW');
