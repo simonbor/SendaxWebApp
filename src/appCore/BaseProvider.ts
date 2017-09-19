@@ -1,9 +1,11 @@
-﻿import Core = require("../appCore");
-import Models = require("../appModels");
-import { User, UserModel, AuthToken } from "../appModels";
+﻿//import Core = require("../appCore");
+//import Models = require("../appModels");
+//import { User, UserModel, AuthToken } from "../appModels";
 import cfg = require("../appConfig");
 import * as mongoose from "mongoose"
 import { Document, Schema, Model, model} from "mongoose";
+import { User } from "../appModels/jUser"
+import { IProvider } from "./Factory"
 
 export enum RepeatPeriods {
     H = 60000 * 60,             //3,600,000 - hour
@@ -63,6 +65,44 @@ BaseProviderSchema.methods.valid = function(): boolean {
     return true;
 };
 
+BaseProviderSchema.methods.insert = function(cb): boolean {
+    
+    User.findOne({ token: this.token }, 'name occupation', (err, user) => {
+        console.log('user find one');
+        if (err) 
+            console.log(err);                       // TODO: chenge to handleError(err);
+
+        if (user) {
+            if (user.type.toString() === 'Active') { // TODO: check the issue with using the - Models.UserType.Active
+                BaseProvider.create(this, (err, res)=>{
+                    if (err) 
+                        console.log(err);                       // TODO: chenge to handleError(err);
+                    cb(res);
+                });
+                //Core.DataBase.insertNewOrder(this, cb);
+            } else {
+                cb({ error: `The user is ${user.type.toString()}` });
+            }
+        } else if (cfg.app.demoMode) {
+            BaseProvider.findOne({token: this.token}, (order)=>{
+                if (!order) {
+                    BaseProvider.create(this, (err, res)=>{
+                        if (err) 
+                            console.log(err);                       // TODO: chenge to handleError(err);
+                        cb(res);    
+                    });
+                } else {
+                    cb({ error: "The token was used" });
+                }
+            });
+        } else {
+            cb({ error: "Demo mode is off. For send login to the system" });
+        }
+    })
+
+    return true;
+};
+
 BaseProviderSchema.methods.update = function(): any {
     // TODO: if the user is test user, initial sent with true value and leave the func
 
@@ -82,7 +122,7 @@ BaseProviderSchema.methods.update = function(): any {
     // TODO: here addition check of the user type and if it is equal to test set the sent to true
 };
 
-export const BaseProvider: Model<Core.IProvider> = model<Core.IProvider>("BaseProvider", BaseProviderSchema);
+export const BaseProvider: Model<IProvider> = model<IProvider>("BaseProvider", BaseProviderSchema, 'Orders');
 
 
 /*export abstract class BaseProvider implements Core.IProvider {

@@ -1,8 +1,11 @@
-﻿import Core = require('../appCore');
+﻿//import Core = require('../appCore');
+import { BaseProvider } from '../appCore/BaseProvider'
 import * as mongoose from "mongoose"
 import { Document, Schema, Model, model} from "mongoose";
 
-export var Sms = Core.BaseProvider.discriminator('Sms',
+//console.log(BaseProvider);
+
+export var Sms = BaseProvider.discriminator('Sms',
     new Schema({ 
         //radius: Number 
     }));

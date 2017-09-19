@@ -31,7 +31,11 @@ export class Sender {
             }]
         };
 
+        console.log('send all');
+        
         BaseProvider.find(params, (err, docs)=>{
+            console.log('find');
+            
             if(err){
                 console.log(err);
               } else {

@@ -14,13 +14,13 @@ namespace Routers {
         return Core.Activator.createInstance(providerName, jsonParams);
     };
 
-    var processRequest = (order: Core.IProvider, callback: any) => {
-        // order.insert((saveResult: any) => {                       // store the send order
-        //     Core.Sender.sendAll((sendResult: any) => {
-        //         console.log(`Performed ${sendResult} orders`);
-        //         callback(saveResult);
-        //     });
-        // });
+    var processRequest = (order: Core.IProvider, callback: any) => {        
+        order.insert((saveResult: any) => {                       // store the send order
+            Core.Sender.sendAll((sendResult: any) => {
+                console.log(`Performed ${sendResult} orders`);
+                callback(saveResult);
+            });
+        });
     }
 
     // define home page route
@@ -33,7 +33,7 @@ namespace Routers {
     router.get("/:token/:from/:to/:delay/:repeat/:subject/:text",
         (req: any, res: any) => {
             var order: Core.IProvider = createInstance(req.baseUrl.slice(1), req.params);
-            
+
             if (order.valid()) {                                                                                            // validate request fields
                 processRequest(order, (result) => {
                     res.json(result);
