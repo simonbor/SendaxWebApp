@@ -1,6 +1,7 @@
 ﻿const express: any = require("express");
 import cfg = require('./appConfig');
 import Core = require('./appCore');
+import { User } from "./appModels/jUser";
 
 var mongoose = require('mongoose');
 let uri = process.env.MLAB_SENDAX_URI;
@@ -56,7 +57,19 @@ const loop = (delay) => {
         setTimeout(loop, delay * 1000, delay);
     }
 };
-setTimeout(loop, 50, cycleDelay);
+//setTimeout(loop, 50, cycleDelay);
+
+
+// /////////////////////////////////////////////////////////////////////////////
+// Tests
+
+let user = new User({
+    
+})
+
+// /////////////////////////////////////////////////////////////////////////////
+
+
 
 app.listen(port);
 

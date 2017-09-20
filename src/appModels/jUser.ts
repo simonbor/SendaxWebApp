@@ -19,58 +19,57 @@ export class MailAccountProvider {
 }
 
 export type UserModel = mongoose.Document & {
-
-    eToken: string;
+    token: string;
+    type: UserType;
     name: string;
     email: string; 
     password: string;
     phone: string;   // cell phone
-    type: UserType;
-    mailAccount: Array<MailAccountProvider>;
+    mailAccount: [MailAccountProvider];
+    //mailAccount: Array<MailAccountProvider>;
 
-    passwordResetToken: string,
-    passwordResetExpires: Date,
+    // passwordResetToken: string,
+    // passwordResetExpires: Date,
   
-    facebook: string,
-    tokens: AuthToken[],
+    //facebook: string,
+    //tokens: AuthToken[],
   
-    profile: {
-      name: string,
-      gender: string,
-      location: string,
-      website: string,
-      picture: string
-    },
+    // profile: {
+    //   name: string,
+    //   gender: string,
+    //   location: string,
+    //   website: string,
+    //   picture: string
+    // },
   
-    comparePassword: (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void,
-    gravatar: (size: number) => string
+    //comparePassword: (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void,
+    //gravatar: (size: number) => string
   };
 
   const userSchema = new mongoose.Schema({
-
-    eToken: String,
+    token: String,
+    type: String,
     name: String,
     email: { type: String, unique: true },
     password: String,
     phone: String,   // cell phone
-    type: Number,
     mailAccount: [String],
 
-    passwordResetToken: String,
-    passwordResetExpires: Date,
+    // passwordResetToken: String,
+    // passwordResetExpires: Date,
   
-    facebook: String,
-    twitter: String,
-    google: String,
-    tokens: Array,
+    // facebook: String,
+    // twitter: String,
+    // google: String,
+    // tokens: Array,
   
-    profile: {
-      name: String,
-      gender: String,
-      location: String,
-      website: String,
-      picture: String
-    }
+    // profile: {
+    //   name: String,
+    //   gender: String,
+    //   location: String,
+    //   website: String,
+    //   picture: String
+    // }
   }, { timestamps: true });
 
 //export const User: UserTypeTwo = mongoose.model<UserTypeTwo>('User', userSchema);
