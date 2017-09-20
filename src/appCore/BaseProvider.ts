@@ -66,11 +66,17 @@ BaseProviderSchema.methods.valid = function(): boolean {
 };
 
 BaseProviderSchema.methods.insert = function(cb): boolean {
-    
-    User.findOne({ token: this.token }, 'name occupation', (err, user) => {
-        console.log('user find one');
+    User.findOne({ token: this.token }, (err, user) => {
         if (err) 
             console.log(err);                       // TODO: chenge to handleError(err);
+
+        console.log('user: ' + user);
+        /*
+        user: { _id: 58a37847f36d2837a7c8500b,
+        token: '0544777601',
+        tokens: [],
+        mailAccount: [] }        
+        */
 
         if (user) {
             if (user.type.toString() === 'Active') { // TODO: check the issue with using the - Models.UserType.Active
