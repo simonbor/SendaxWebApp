@@ -6,6 +6,9 @@ export class Sender {
 
     public static sendThese(orders: Factory.IProvider[], cb: any): void {
         let sentNum = 0;
+
+        console.log('orders.length: ' + orders.length)
+        
         for (var i = 0; i < orders.length; i++) {
             orders[i].send((that, result) => {
                 result && that.update();          // update sent order
@@ -31,13 +34,16 @@ export class Sender {
             }]
         };
 
-        BaseProvider.find(params, (err, docs)=>{
+        BaseProvider.find({ $or: [{ sent: false }, { sent: { $exists: false } }] }, (err, docs)=>{
             if(err){
                 console.log(err);
               } else {
                 /* for (var i = 0; i < docs.length; i++) {
                     orders[i] = Factory.Activator.createInstance(docs[i].type, docs[i]);
                 } */
+
+                console.log('docs: ' + docs.length, 'now: ' + now)
+
                 if (docs && docs.length > 0) {
                     this.sendThese(docs, cb);
                 } else {

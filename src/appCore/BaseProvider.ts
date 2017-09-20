@@ -39,7 +39,12 @@ BaseProviderSchema.pre("save", function(next) {
   next();
 });
 
-BaseProviderSchema.methods.send = (callback: any) => {};
+BaseProviderSchema.methods.send = function(callback: any) {
+
+    // todo: find approach to implement necessary logic in derived classes Mail and Sms
+    console.log(this);
+
+};
 
 BaseProviderSchema.methods.valid = function(): boolean {
     // this.delay is should be positive whole number

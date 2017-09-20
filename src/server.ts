@@ -57,19 +57,19 @@ const loop = (delay) => {
         setTimeout(loop, delay * 1000, delay);
     }
 };
-//setTimeout(loop, 50, cycleDelay);
+setTimeout(loop, 50, cycleDelay);
 
 
 // /////////////////////////////////////////////////////////////////////////////
 // Tests
-
-let user = new User({
-    
-})
-
+/**
+{ $and: [{ $or: [{ sent: false }, { sent: { $exists: false } }] }, { timeToSend: { $lt: now } }] }
+ 
+ 
+ 
+ 
+ */
 // /////////////////////////////////////////////////////////////////////////////
-
-
 
 app.listen(port);
 
