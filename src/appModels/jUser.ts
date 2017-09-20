@@ -74,8 +74,8 @@ export type UserModel = mongoose.Document & {
   }, { timestamps: true });
 
 //export const User: UserTypeTwo = mongoose.model<UserTypeTwo>('User', userSchema);
-export const User = mongoose.model<UserModel>("User", userSchema);
-//export default User;
+export const User = mongoose.model<UserModel>("User", userSchema, 'Users');
+export default User;
   
 // example
 /*
