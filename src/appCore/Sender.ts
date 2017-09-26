@@ -7,7 +7,7 @@ export class Sender {
     public static sendThese(orders: Factory.IProvider[], cb: any): void {
         let sentNum = 0;
 
-        //console.log('orders.length: ' + orders.length)
+        //console.log('orders.length: ' + orders.length);
         
         for (var i = 0; i < orders.length; i++) {
             orders[i].send((that, result) => {
@@ -15,6 +15,8 @@ export class Sender {
                 result && that.store(() => { });  // store sent order in the DB 
                 result && sentNum++;
 
+                console.log('orders.length: ' + orders.length);
+                
                 // return sent orders number on the last loop iteration
                 (i >= orders.length) && cb(sentNum);
             });

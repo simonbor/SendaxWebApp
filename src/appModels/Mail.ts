@@ -4,12 +4,11 @@ import { User, UserModel, AuthToken } from "../appModels";
 import { Document, Schema, Model, model} from "mongoose";
 
 export var MailSchema: Schema = new Schema({
-
 });
 
 MailSchema.methods.send = function(callback: any) {
     
-    console.log(this.token);
+    console.log('mail send: ' + this);
 
     const nodemailer = require('nodemailer');
     const crypt = require('../appCore/Crypt');
@@ -26,7 +25,6 @@ MailSchema.methods.send = function(callback: any) {
         // this.text = JSON.stringify(this);
 
         transport.sendMail(this, (error, info) => {
-
             if (error) {
                 console.log(error);
                 callback(false);
@@ -39,7 +37,7 @@ MailSchema.methods.send = function(callback: any) {
     });    
 };
 
-export var Mail = Core.BaseProvider.discriminator('Mail', MailSchema);
+export var Mail = Core.BaseProvider.discriminator<Core.IProvider>('Mail', MailSchema);
 
 //export const Mail: Model<Core.IProvider> = model<Core.IProvider>("Mail", MailSchema);
 

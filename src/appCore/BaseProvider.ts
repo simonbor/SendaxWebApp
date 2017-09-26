@@ -34,16 +34,27 @@ export var BaseProviderSchema: Schema = new Schema({
 BaseProviderSchema.pre("save", function(next) {
   let now = new Date();
   if (!this.createdAt) {
-    this.createdAt = now;
+    //this.createdAt = now;
   }
   next();
 });
 
-BaseProviderSchema.methods.send = function(callback: any) {
-
-    // todo: find approach to implement necessary logic in derived classes Mail and Sms
+BaseProviderSchema.methods.send = function(cb: any) {
+    // the necessary logic is implemented in derived classes (Mail and Sms)
     console.log('BaseProviderSchema: ' + this);
+};
 
+BaseProviderSchema.methods.store = function(callback: any) {
+    const params = { $set: { sent: this.sent, repeated: this.repeated, timeToSend: (this.timeToSend || -1) } };
+
+    BaseProvider.findOneAndUpdate({_id: this._id}, params, (err, doc) => {
+        if (err) {
+            console.log('Can\'t update order record');
+        } 
+        /* else {
+            console.log("one updated: " + doc);
+        } */
+    });
 };
 
 BaseProviderSchema.methods.valid = function(): boolean {
@@ -108,7 +119,6 @@ BaseProviderSchema.methods.insert = function(cb): boolean {
 
 BaseProviderSchema.methods.update = function(): any {
     // TODO: if the user is test user, initial sent with true value and leave the func
-
     this.repeated =++ this.repeated || 0;
 
     if (this.repeat && this.repeat.length > 1 && /^[HDWMY]$/.test(this.repeat[0].toUpperCase()) && /^\d$/.test(this.repeat[1])) {
@@ -121,7 +131,6 @@ BaseProviderSchema.methods.update = function(): any {
     } else if (this.repeat && this.repeat === "0") {
         this.sent = true;
     }
-
     // TODO: here addition check of the user type and if it is equal to test set the sent to true
 };
 

@@ -1,5 +1,6 @@
 import {} from 'jest';
 import Core = require('../src/appCore');
+import * as Models from "../src/appModels";
 
 class Provider extends Core.BaseProvider implements Core.IProvider {
     /* valid(): boolean { return super.valid(); }
@@ -68,13 +69,16 @@ test('Base Provider Update Test', () => {
     // expect(testOrders[3].timeToSend + timeGap).toBeGreaterThan(new Date().getTime() + testOrders[3].delay); // Repeated incremented and the timeToSend == delay + NOW');
 });
 
-test('', () => {
+test('The send functionality test', () => {
     let testOrders = [
-        new Core.BaseProvider({ type: 'Test' }),
-        new Core.BaseProvider({ type: 'Test' })
+        new Models.Mail({ type: 'Test' }),
+        new Models.Mail({ type: 'Test' })
     ];
 
+    console.log('testOrders.length: ' + testOrders.length);
+
     Core.Sender.sendThese(testOrders, (sentNum: any) => {
+        console.log(sentNum);
         expect(sentNum).toBeGreaterThan(0); //, "The sendAll should return positive whole number");
     });
   });

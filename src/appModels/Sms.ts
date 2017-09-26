@@ -1,20 +1,18 @@
-﻿//import Core = require('../appCore');
-import { BaseProvider } from '../appCore/BaseProvider'
+﻿import Core = require('../appCore');
+//import { BaseProvider } from '../appCore/BaseProvider'
 import * as mongoose from "mongoose"
 import { Document, Schema, Model, model} from "mongoose";
 
-export var SmsSchema: Schema = new Schema({
+export var SmsSchema: Schema = new Schema({    
+});
     
-    });
-    
-SmsSchema.methods.send = function(callback: any) {
-        
-    // todo: find approach to implement necessary logic in derived classes Mail and Sms
-    //console.log('SmsSchema: ' + this);
-
+SmsSchema.methods.send = function(cb: any) {
+    // TODO: here implement send SMS logic
+    console.log(`The order ${this._id} was marked as sent. For real send please implement Sms.send() method`);
+    cb(this, true);
 };
     
-export var Sms = BaseProvider.discriminator('Sms', SmsSchema);
+export var Sms = Core.BaseProvider.discriminator<Core.IProvider>('Sms', SmsSchema);
 
 /* export class Sms extends Core.BaseProvider implements Core.IProvider {
 
