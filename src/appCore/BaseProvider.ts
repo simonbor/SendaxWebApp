@@ -42,7 +42,7 @@ BaseProviderSchema.pre("save", function(next) {
 BaseProviderSchema.methods.send = function(callback: any) {
 
     // todo: find approach to implement necessary logic in derived classes Mail and Sms
-    console.log(this);
+    console.log('BaseProviderSchema: ' + this);
 
 };
 

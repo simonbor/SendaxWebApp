@@ -3,12 +3,18 @@ import { BaseProvider } from '../appCore/BaseProvider'
 import * as mongoose from "mongoose"
 import { Document, Schema, Model, model} from "mongoose";
 
-//console.log(BaseProvider);
+export var SmsSchema: Schema = new Schema({
+    
+    });
+    
+SmsSchema.methods.send = function(callback: any) {
+        
+    // todo: find approach to implement necessary logic in derived classes Mail and Sms
+    //console.log('SmsSchema: ' + this);
 
-export var Sms = BaseProvider.discriminator('Sms',
-    new Schema({ 
-        //radius: Number 
-    }));
+};
+    
+export var Sms = BaseProvider.discriminator('Sms', SmsSchema);
 
 /* export class Sms extends Core.BaseProvider implements Core.IProvider {
 

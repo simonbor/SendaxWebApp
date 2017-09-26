@@ -1,12 +1,45 @@
 ﻿import Core = require('../appCore');
 import Models = require('../appModels');
-//import { User, UserModel, AuthToken } from "../appModels";
+import { User, UserModel, AuthToken } from "../appModels";
 import { Document, Schema, Model, model} from "mongoose";
 
-export var Mail = Core.BaseProvider.discriminator('Mail',
-    new Schema({ 
-        //radius: Number 
-    }));
+export var MailSchema: Schema = new Schema({
+
+});
+
+MailSchema.methods.send = function(callback: any) {
+    
+    console.log(this.token);
+
+    const nodemailer = require('nodemailer');
+    const crypt = require('../appCore/Crypt');
+    const cfg: any = require('../appConfig');
+
+    User.findOne({token: this.token}, (user: UserModel) => {
+        // retrieve the default user from config for test sending
+        user = user || cfg.defUser;
+
+        let mailAccount: any = JSON.parse(JSON.stringify(user.mailAccount[0]));
+        mailAccount.auth.pass = crypt.decrypt(mailAccount.auth.pass);
+        const transport = nodemailer.createTransport(mailAccount);
+
+        // this.text = JSON.stringify(this);
+
+        transport.sendMail(this, (error, info) => {
+
+            if (error) {
+                console.log(error);
+                callback(false);
+            } else {
+                console.log('Message sent: ' + info.response);
+                callback(this, true);
+            }
+        });
+
+    });    
+};
+
+export var Mail = Core.BaseProvider.discriminator('Mail', MailSchema);
 
 //export const Mail: Model<Core.IProvider> = model<Core.IProvider>("Mail", MailSchema);
 

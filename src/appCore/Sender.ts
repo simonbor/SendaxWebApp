@@ -7,7 +7,7 @@ export class Sender {
     public static sendThese(orders: Factory.IProvider[], cb: any): void {
         let sentNum = 0;
 
-        console.log('orders.length: ' + orders.length)
+        //console.log('orders.length: ' + orders.length)
         
         for (var i = 0; i < orders.length; i++) {
             orders[i].send((that, result) => {
@@ -42,7 +42,7 @@ export class Sender {
                     orders[i] = Factory.Activator.createInstance(docs[i].type, docs[i]);
                 } */
 
-                console.log('docs: ' + docs.length, 'now: ' + now)
+                //console.log('docs: ' + docs.length, 'now: ' + now)
 
                 if (docs && docs.length > 0) {
                     this.sendThese(docs, cb);
