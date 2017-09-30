@@ -69,17 +69,18 @@ test('Base Provider Update Test', () => {
     // expect(testOrders[3].timeToSend + timeGap).toBeGreaterThan(new Date().getTime() + testOrders[3].delay); // Repeated incremented and the timeToSend == delay + NOW');
 });
 
-test('The send functionality test', () => {
+test('The send mechanism quantity functionality test', () => {
     let testOrders = [
         new Models.Mail({ type: 'Test' }),
         new Models.Mail({ type: 'Test' })
-    ];
-
-    console.log('testOrders.length: ' + testOrders.length);
+    ],
+    expectSentNum = 0;
 
     Core.Sender.sendThese(testOrders, (sentNum: any) => {
         console.log(sentNum);
-        expect(sentNum).toBeGreaterThan(0); //, "The sendAll should return positive whole number");
+        expectSentNum = sentNum;
     });
-  });
+
+    expect(expectSentNum).toBe(2);    
+});
 

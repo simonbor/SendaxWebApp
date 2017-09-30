@@ -6,9 +6,9 @@ import { Document, Schema, Model, model} from "mongoose";
 export var MailSchema: Schema = new Schema({
 });
 
-MailSchema.methods.send = function(callback: any) {
+MailSchema.methods.send = function(cb: any) {
     
-    console.log('mail send: ' + this);
+    //console.log('mail send: ' + this);
 
     const nodemailer = require('nodemailer');
     const crypt = require('../appCore/Crypt');
@@ -27,10 +27,10 @@ MailSchema.methods.send = function(callback: any) {
         transport.sendMail(this, (error, info) => {
             if (error) {
                 console.log(error);
-                callback(false);
+                cb(false);
             } else {
                 console.log('Message sent: ' + info.response);
-                callback(this, true);
+                cb(this, true);
             }
         });
 
