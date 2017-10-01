@@ -2,11 +2,42 @@ import {} from 'jest';
 import Core = require('../src/appCore');
 import * as Models from "../src/appModels";
 
-import cfg = require('../src/appConfig');
 var mongoose = require('mongoose');
 process.env.NODE_ENV = 'test';
+import cfg = require('../src/appConfig');
 
-describe('Test the removeComment method', () => {
+beforeAll(function (done) {
+
+    function clearDB() {
+    for (var i in mongoose.connection.collections) {
+        mongoose.connection.collections[i].remove(function() {});
+    }
+    return done();
+    }
+
+    console.log("mongoose.connection.readyState: " + mongoose.connection.readyState);
+
+    //if (mongoose.connection.readyState === 0) {
+        mongoose.connect(cfg.dbUrl, function (err) {
+            if (err) {
+                console.log ('ERROR connecting to: ' + cfg.dbUrl + '. ' + err);
+            } else {
+                console.log ('Succeeded connected to: ' + cfg.dbUrl);
+            }
+            return clearDB();
+        });
+    // } else {
+    //     return clearDB();
+    // }
+});
+
+/* afterEach(function (done) {
+    mongoose.disconnect();
+    return done();
+});
+ */
+
+/* describe('Test the removeComment method', () => {
     //let comment;
     beforeAll(() => {
         mongoose.connect(cfg.app.dbUrl);
@@ -21,7 +52,7 @@ describe('Test the removeComment method', () => {
     afterAll((done) => {
         mongoose.disconnect(done);
     });
-});
+}); */
 
 class Provider extends Core.BaseProvider implements Core.IProvider {
     /* valid(): boolean { return super.valid(); }

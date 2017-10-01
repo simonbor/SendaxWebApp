@@ -7,7 +7,7 @@ var mongoose = require('mongoose');
 const app: any = express();
 const port: number = process.env.PORT || 3000;
 
-app.set("dbUrl", process.env.MLAB_SENDAX_URI || cfg.app.dbUrl);
+app.set("dbUrl", process.env.MLAB_SENDAX_URI || cfg.dbUrl);
 
 mongoose.connect(app.get("dbUrl"), { useMongoClient: true }, function(err, res) {
     if (err) {
