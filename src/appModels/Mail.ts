@@ -8,7 +8,7 @@ export var MailSchema: Schema = new Schema({
 
 MailSchema.methods.send = function(cb: any) {
     
-    //console.log('mail send: ' + this);
+    console.log('MailSchema send: ' + this);
 
     const nodemailer = require('nodemailer');
     const crypt = require('../appCore/Crypt');

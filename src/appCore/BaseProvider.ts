@@ -41,7 +41,7 @@ BaseProviderSchema.pre("save", function(next) {
 
 BaseProviderSchema.methods.send = function(cb: any) {
     // the necessary logic is implemented in derived classes (Mail and Sms)
-    console.log('BaseProviderSchema: ' + this);
+    console.log('BaseProviderSchema send: ' + this);
 };
 
 BaseProviderSchema.methods.store = function(callback: any) {
