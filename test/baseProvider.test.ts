@@ -2,6 +2,27 @@ import {} from 'jest';
 import Core = require('../src/appCore');
 import * as Models from "../src/appModels";
 
+import cfg = require('../src/appConfig');
+var mongoose = require('mongoose');
+process.env.NODE_ENV = 'test';
+
+describe('Test the removeComment method', () => {
+    //let comment;
+    beforeAll(() => {
+        mongoose.connect(cfg.app.dbUrl);
+    });
+    beforeEach(() => {
+        // comment = new CommentModel(testData.normalComment);
+        // return comment.save();
+    });
+    afterEach(() => {
+        // return CommentModel.removeComments();
+    });
+    afterAll((done) => {
+        mongoose.disconnect(done);
+    });
+});
+
 class Provider extends Core.BaseProvider implements Core.IProvider {
     /* valid(): boolean { return super.valid(); }
     insert(callback) { }
@@ -9,6 +30,10 @@ class Provider extends Core.BaseProvider implements Core.IProvider {
     update(): boolean { return super.update(); }
     store(callback): void { } */
 }
+
+test('Should failed when env not test ', () => {
+    expect(process.env.NODE_ENV).toEqual('test');
+});
 
 test('test BaseProvider Validation method', () => {
 

@@ -1,9 +1,10 @@
 ﻿{
+  "dbUrl": "mongodb://localhost:27017/sendaxdb-test",
   "app": {
     "cycleSend": true,
     "cycleDelay": 30,
     "demoMode": false
-  },
+	},
 	"defUser": {
 		"token": 0, 
 		"type": "Active", 

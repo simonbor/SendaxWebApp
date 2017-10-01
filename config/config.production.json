@@ -1,4 +1,5 @@
 ﻿{
+  "dbUrl": " -- the connection string is placed in server environment variable MLAB_SENDAX_URI -- ",
   "app": {
     "cycleSend": true,
     "cycleDelay": 30,
