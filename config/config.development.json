@@ -1,4 +1,5 @@
 ﻿{
+  "dbUrl": "mongodb://localhost:27017/sendaxdb",
   "app": {
     "cycleSend": true,
     "cycleDelay": 30,

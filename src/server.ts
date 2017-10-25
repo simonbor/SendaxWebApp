@@ -8,9 +8,9 @@ let uri = process.env.MLAB_SENDAX_URI || cfg.db;
 
 mongoose.connect(uri, { useMongoClient: true }).then((err, res) => {
     if (err) {
-        console.log ('ERROR connecting to: ' + uri + '. ' + err);
+        console.log ('ERROR connecting to: ' + app.get("dbUrl") + '. ' + err);
     } else {
-        console.log ('Succeeded connected to: ' + uri);
+        console.log ('Succeeded connected to: ' + app.get("dbUrl"));
     }
 });
 
@@ -25,7 +25,6 @@ mongoose.connect(app.get('dbUrl')); */
 // TODO: take the code to external module
 //--------------------------------------
 app.use(function (req, res, next) {
-
     // Website you wish to allow to connect
     var allowedOrigins = ["http://localhost:4200", "https://sendax-post.herokuapp.com"];
     if (allowedOrigins.indexOf(req.headers.origin) > -1) {
@@ -88,3 +87,8 @@ app.listen(port);
 // 2. -- Organize the project structure - https://github.com/basarat/typescript-book/blob/master/docs/quick/nodejs.md
 // 3. Extend the app by add the Telegram support - https://core.telegram.org/api/obtaining_api_id
 // 4. Add history and active orders
+
+// -----------------------------------------------------
+// Production Instalation important steps
+// -----------------------------------------------------
+// 1. set the NODE_ENV = "production" and MLAB_SENDAX_URI = "/*connection string*/" server environment variables
