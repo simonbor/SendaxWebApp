@@ -4,7 +4,8 @@ import Core = require('./appCore');
 import { User } from "./appModels/jUser";
 
 var mongoose = require('mongoose');
-let uri = process.env.MLAB_SENDAX_URI || "mongodb://localhost:27017/sendaxdb";
+let uri = process.env.MLAB_SENDAX_URI || cfg.db;
+
 mongoose.connect(uri, { useMongoClient: true }).then((err, res) => {
     if (err) {
         console.log ('ERROR connecting to: ' + uri + '. ' + err);
@@ -15,6 +16,9 @@ mongoose.connect(uri, { useMongoClient: true }).then((err, res) => {
 
 const app: any = express();
 const port: number = process.env.PORT || 3000;
+
+/* app.set('dbUrl', cfg.db[app.settings.env]);
+mongoose.connect(app.get('dbUrl')); */
 
 //--------------------------------------
 // Cross domain settings 

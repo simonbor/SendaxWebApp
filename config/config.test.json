@@ -3,7 +3,8 @@
     "cycleSend": true,
     "cycleDelay": 30,
     "demoMode": false
-  },
+	},
+	"db": "mongodb://localhost:27017/test",
 	"defUser": {
 		"token": 0, 
 		"type": "Active", 
