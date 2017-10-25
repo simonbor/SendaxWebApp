@@ -25,8 +25,7 @@ describe('Test BaseProviders methods', () => {
             done();
         });
     });
-    beforeEach((done) => {
-        done();
+    beforeEach(() => {
     });
     afterEach(() => {
     });
