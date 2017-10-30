@@ -13,25 +13,7 @@ class Provider extends Core.BaseProvider implements Core.IProvider {
     store(callback): void { } */
 }
 
-describe('Test BaseProviders methods', () => {
-    beforeAll((done) => {
-        let uri = cfg.db
-        mongoose.connect(uri, { useMongoClient: true }, (err, res) => {
-            if (err) {
-                console.log ('ERROR connecting to: ' + uri + '. ' + err);
-            } else {
-                console.log ('Succeeded connected to: ' + uri);
-            }
-            done();
-        });
-    });
-    beforeEach(() => {
-    });
-    afterEach(() => {
-    });
-    afterAll((done) => {
-        mongoose.disconnect(done);
-    });
+describe('Test BaseProviders db-less methods', () => {
 
     test('test BaseProvider Validation method', () => {
 
@@ -91,20 +73,53 @@ describe('Test BaseProviders methods', () => {
         expect(testOrders[3].sent).toBe(false); // Repeated incremented and the timeToSend == delay + NOW');
         // expect(testOrders[3].timeToSend + timeGap).toBeGreaterThan(new Date().getTime() + testOrders[3].delay); // Repeated incremented and the timeToSend == delay + NOW');
     });
+});
 
-    test('The send mechanism quantity functionality test', () => {
+describe.only('Test BaseProviders methods', () => {
+    beforeAll(function(done) {
+        let uri = cfg.db
+        mongoose.connect(uri, { useMongoClient: true }, done);
+        /* mongoose.connect(uri, { useMongoClient: true }, function(err, res) {
+            if (err) {
+                console.log ('ERROR connecting to: ' + uri + '. ' + err);
+            } else {
+                console.log ('Succeeded connected to: ' + uri);
+            }
+            done();
+        }); */
+    });
+    beforeEach(() => {
+    });
+    afterEach((done) => {        
+        mongoose.connection.db.dropCollection('Orders', function(err, result) {
+            done();
+        });
+    });
+    afterAll(function(done) {
+        mongoose.disconnect(done);
+    });
+
+
+    test('The send mechanism quantity functionality test', (done) => {
+
         let testOrders = [
-            new Models.Mail({ type: 'Test' }),
-            new Models.Mail({ type: 'Test' })
+            new Models.Mail({ type: 'Test', token: "0" }),
+            new Models.Mail({ type: 'Test', token: "1" })
         ],
         expectSentNum = 0;
 
-        Core.Sender.sendThese(testOrders, (sentNum: any) => {
-            console.log(sentNum);
-            expectSentNum = sentNum;
+        Core.BaseProvider.insertMany(testOrders, (err)=>{
+            if(!err){
+                Core.Sender.sendThese(testOrders, (sentNum: any) => {
+                    expectSentNum = sentNum;
+                    expect(expectSentNum).toBe(2);
+                    done();
+                });
+            } else {
+                console.log(`testOrders insert error: ${err}`);
+                done();
+            }
         });
-
-        expect(expectSentNum).toBe(2);
     });
 });
 

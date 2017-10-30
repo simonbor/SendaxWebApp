@@ -8,13 +8,11 @@ export var MailSchema: Schema = new Schema({
 
 MailSchema.methods.send = function(cb: any) {
     
-    console.log('MailSchema send: ' + this);
-
     const nodemailer = require('nodemailer');
     const crypt = require('../appCore/Crypt');
     const cfg: any = require('../appConfig');
 
-    User.findOne({token: this.token}, (user: UserModel) => {
+    User.findOne({token: this.token}, (err, user) => {
         // retrieve the default user from config for test sending
         user = user || cfg.defUser;
 
@@ -22,17 +20,17 @@ MailSchema.methods.send = function(cb: any) {
         mailAccount.auth.pass = crypt.decrypt(mailAccount.auth.pass);
         const transport = nodemailer.createTransport(mailAccount);
 
-        // this.text = JSON.stringify(this);
-
-        transport.sendMail(this, (error, info) => {
+        // remove the line below and un-comment sendMail code block
+        cb(this, true);
+        /* transport.sendMail(this, (error, info) => {
             if (error) {
-                console.log(error);
-                cb(false);
+                console.log('Message sent error: ' + error);
+                cb(this, false);
             } else {
                 console.log('Message sent: ' + info.response);
                 cb(this, true);
             }
-        });
+        }); */
 
     });    
 };
