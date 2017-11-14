@@ -18,7 +18,7 @@ export var BaseProviderSchema: Schema = new Schema({
     token: {type: String, required: true, unique: true},
     from: String,
     delay: Number,
-    to: [[String]], //[],
+    to: [String],
     repeat: String,
     subject: String,
     text: String,
