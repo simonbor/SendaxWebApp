@@ -1,26 +1,22 @@
 ﻿const express: any = require("express");
 import cfg = require('./appConfig');
-import Core = require('./appCore');
-import { User } from "./appModels/jUser";
-
+import { Sender } from './appCore';
 var mongoose = require('mongoose');
-let uri = process.env.MLAB_SENDAX_URI || cfg.db;
 
-mongoose.connect(uri, { useMongoClient: true }).then((err, res) => {
+const app: any = express();
+
+/* // the technique to provide params throw the layers of the application
+app.set('dbUrl', cfg.dbUrl[app.settings.env]);
+mongoose.connect(app.get('dbUrl')); */
+let uri = process.env.MLAB_SENDAX_URI || cfg.dbUrl;
+mongoose.connect(uri, { useMongoClient: true }, (err, res) => {
     if (err) {
-        console.log ('ERROR connecting to: ' + app.get("dbUrl") + '. ' + err);
+        console.log ('ERROR connecting to: ' + uri + '. ' + err);
     } else {
-        console.log ('Succeeded connected to: ' + app.get("dbUrl"));
+        console.log ('Succeeded connected to: ' + uri);
     }
 });
 
-const app: any = express();
-const port: number = process.env.PORT || 3000;
-
-/* app.set('dbUrl', cfg.db[app.settings.env]);
-mongoose.connect(app.get('dbUrl')); */
-
-//--------------------------------------
 // Cross domain settings 
 // TODO: take the code to external module
 //--------------------------------------
@@ -42,7 +38,6 @@ app.use(function (req, res, next) {
     next();
 });
 
-//--------------------------------------
 // Express Routers
 //--------------------------------------
 const mailRouter: any = require("./appRouters/AppRouter");
@@ -54,7 +49,6 @@ app.get("/", (req: any, res: any) => {
     res.send("<b>Welcome to Sendax Messaging System</b><p>Fix your request for send a message</p>");
 });
 
-//--------------------------------------
 // the Loop Sending mechanism - delay - seconds, default - half minute
 //--------------------------------------
 const cycleSend = cfg.app.cycleSend;
@@ -62,33 +56,22 @@ const cycleDelay = cfg.app.cycleDelay;
 
 const loop = (delay) => {
     if (cycleSend) {
-        Core.Sender.sendAll((sendResult: any) => console.log(`Performed ${sendResult} orders`));
+        Sender.sendAll((sendResult: any) => console.log(`Performed ${sendResult} orders`));
         setTimeout(loop, delay * 1000, delay);
     }
 };
 setTimeout(loop, 50, cycleDelay);
 
-
-// /////////////////////////////////////////////////////////////////////////////
-// Tests
-/**
-{ $and: [{ $or: [{ sent: false }, { sent: { $exists: false } }] }, { timeToSend: { $lt: now } }] }
- 
- 
- 
- 
- */
-// /////////////////////////////////////////////////////////////////////////////
-
+const port: number = process.env.PORT || 3000;
 app.listen(port);
 
 // 1. -- For repair the project tests I need inject the mongoose - http://brianflove.com/2016/10/04/typescript-declaring-mongoose-schema-model/, http://rob.conery.io/2012/02/24/testing-your-model-with-mocha-mongo-and-nodejs/
-// 1.1 Should to refactoring the tests structure - http://www.albertgao.xyz/2017/06/19/test-your-model-via-jest-and-mongoose/, https://www.terlici.com/2014/09/15/node-testing.html, http://www.scotchmedia.com/tutorials/express/authentication/1/06
+// 1.1 -- Should to refactoring the tests structure - http://www.albertgao.xyz/2017/06/19/test-your-model-via-jest-and-mongoose/, https://www.terlici.com/2014/09/15/node-testing.html, http://www.scotchmedia.com/tutorials/express/authentication/1/06
 // 2. -- Organize the project structure - https://github.com/basarat/typescript-book/blob/master/docs/quick/nodejs.md
 // 3. Extend the app by add the Telegram support - https://core.telegram.org/api/obtaining_api_id
 // 4. Add history and active orders
 
 // -----------------------------------------------------
-// Production Instalation important steps
+// Production Installation important steps
 // -----------------------------------------------------
 // 1. set the NODE_ENV = "production" and MLAB_SENDAX_URI = "/*connection string*/" server environment variables

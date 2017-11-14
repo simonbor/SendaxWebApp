@@ -1,4 +1,4 @@
-﻿import Core = require('../appCore');
+﻿import { IProvider, Activator, Sender } from '../appCore';
 
 namespace Routers {
     var express: any = require("express");
@@ -11,14 +11,12 @@ namespace Routers {
     //  create instance by Factory activator
     var createInstance = (router: string, jsonParams) => {
         var providerName = router[0].toUpperCase() + router.slice(1).toLowerCase();
-        return Core.Activator.createInstance(providerName, jsonParams);
+        return Activator.createInstance(providerName, jsonParams);
     };
 
-    var processRequest = (order: Core.IProvider, callback: any) => {        
-        //console.log('order: ' + order);
-        
+    var processRequest = (order: IProvider, callback: any) => {                
         order.insert((saveResult: any) => {                       // store the send order
-            Core.Sender.sendAll((sendResult: any) => {
+            Sender.sendAll((sendResult: any) => {
                 console.log(`Performed ${sendResult} orders`);
                 callback(saveResult);
             });
@@ -34,7 +32,7 @@ namespace Routers {
     // full GET
     router.get("/:token/:from/:to/:delay/:repeat/:subject/:text",
         (req: any, res: any) => {
-            var order: Core.IProvider = createInstance(req.baseUrl.slice(1), req.params);
+            var order: IProvider = createInstance(req.baseUrl.slice(1), req.params);
 
             if (order.valid()) {                                                                                            // validate request fields
                 processRequest(order, (result) => {
@@ -48,7 +46,7 @@ namespace Routers {
     // full POST for //mail/, //sms/, //*/
     router.post("/",
         (req: any, res: any) => {
-            var order: Core.IProvider = createInstance(req.baseUrl.slice(1), req.body);
+            var order: IProvider = createInstance(req.baseUrl.slice(1), req.body);
 
             if (order.valid()) {                                                                                            // validate request fields
                 processRequest(order, (result) => {

@@ -1,10 +1,10 @@
 ﻿{
-  "dbUrl": " -- the connection string is placed in server environment variable MLAB_SENDAX_URI -- ",
   "app": {
     "cycleSend": true,
     "cycleDelay": 30,
     "demoMode": false
   },
+  "dbUrl": " -- the connection string is placed in server environment variable MLAB_SENDAX_URI -- ",
 	"defUser": {
 		"token": 0, 
 		"type": "Active", 

@@ -1,10 +1,4 @@
-﻿
-import * as mongoose from "mongoose";
-
-export type AuthToken = {
-    accessToken: string,
-    kind: string
-};
+﻿import { Document, Schema, Model, model } from "mongoose";
 
 export enum UserType {
     Active,
@@ -18,7 +12,7 @@ export class MailAccountProvider {
     public auth: any;
 }
 
-export type UserModel = mongoose.Document & {
+export type UserModel = Document & {
     token: string;
     type: UserType;
     name: string;
@@ -26,94 +20,26 @@ export type UserModel = mongoose.Document & {
     password: string;
     phone: string;   // cell phone
     mailAccount: [MailAccountProvider];
-    //mailAccount: Array<MailAccountProvider>;
+};
 
-    // passwordResetToken: string,
-    // passwordResetExpires: Date,
-  
-    //facebook: string,
-    //tokens: AuthToken[],
-  
-    // profile: {
-    //   name: string,
-    //   gender: string,
-    //   location: string,
-    //   website: string,
-    //   picture: string
-    // },
-  
-    //comparePassword: (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void,
-    //gravatar: (size: number) => string
-  };
-
-  const userSchema = new mongoose.Schema({
+  const userSchema = new Schema({
     token: String,
     type: String,
     name: String,
     email: { type: String, unique: true },
     password: String,
     phone: String,   // cell phone
-    mailAccount: [String],
-
-    // passwordResetToken: String,
-    // passwordResetExpires: Date,
-  
-    // facebook: String,
-    // twitter: String,
-    // google: String,
-    // tokens: Array,
-  
-    // profile: {
-    //   name: String,
-    //   gender: String,
-    //   location: String,
-    //   website: String,
-    //   picture: String
-    // }
-  }, { timestamps: true });
-
-//export const User: UserTypeTwo = mongoose.model<UserTypeTwo>('User', userSchema);
-export const User = mongoose.model<UserModel>("User", userSchema, 'Users');
-export default User;
-  
-// example
-/*
-{
-    "token": "0544777601",
-    "type": "Active",
-    "mailAccount": [
+    mailAccount: [
         {
-            "default": true,
-            "service": "Gmail",
-            "auth": {
-                "user": "simonbor@gmail.com",
-                "pass": "83d80671a52e2da09db68cada9edb4b0"
+			"default": Boolean,
+			"service": String, 
+			"auth": {
+			    "user": String, 
+				"pass": String
             }
         }
-    ]
-};
-*/
+    ],
+}, { timestamps: true });
 
-// export enum UserType {
-//     Active,
-//     Inactive,
-//     Test
-// }
-
-// export class MailAccountProvider {
-//     public default: boolean;
-//     public service: string;
-//     public auth: any;
-// }
-
-// export class User {
-
-//     public eToken: string;
-//     public name: string;
-//     public email: string; 
-//     public password: string;
-//     public phone: string;   // cell phone
-//     public type: UserType;
-//     public mailAccount: Array<MailAccountProvider>;
-
-// }
+export const User = model<UserModel>("User", userSchema, 'Users');
+export default User;
