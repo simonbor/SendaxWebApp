@@ -26,7 +26,7 @@ class Sender {
                     timeToSend: { $lt: now }
                 }]
         };
-        _1.BaseProvider.find({ $or: [{ sent: false }, { sent: { $exists: false } }] }, (err, docs) => {
+        _1.BaseProvider.find(params, (err, docs) => {
             if (err) {
                 console.log(err);
             }
