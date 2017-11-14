@@ -30,7 +30,7 @@ export class Sender {
             }]
         };
 
-        BaseProvider.find({ $or: [{ sent: false }, { sent: { $exists: false } }] }, (err, docs)=>{
+        BaseProvider.find(params, (err, docs)=>{
             if(err){
                 console.log(err);
               } else {
