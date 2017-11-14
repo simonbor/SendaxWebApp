@@ -1,20 +1,4 @@
-﻿// example
-/*
-{
-    "token": "0544777601",
-    "type": "Active",
-    "mailAccount": [
-        {
-            "default": true,
-            "service": "Gmail",
-            "auth": {
-                "user": "simonbor@gmail.com",
-                "pass": "83d80671a52e2da09db68cada9edb4b0"
-            }
-        }
-    ]
-};
-*/
+﻿import { Document, Schema, Model, model } from "mongoose";
 
 export enum UserType {
     Active,
@@ -28,14 +12,34 @@ export class MailAccountProvider {
     public auth: any;
 }
 
-export class User {
+export type UserModel = Document & {
+    token: string;
+    type: UserType;
+    name: string;
+    email: string; 
+    password: string;
+    phone: string;   // cell phone
+    mailAccount: [MailAccountProvider];
+};
 
-    public eToken: string;
-    public name: string;
-    public email: string; 
-    public password: string;
-    public phone: string;   // cell phone
-    public type: UserType;
-    public mailAccount: Array<MailAccountProvider>;
+  const userSchema = new Schema({
+    token: String,
+    type: String,
+    name: String,
+    email: { type: String, unique: true },
+    password: String,
+    phone: String,   // cell phone
+    mailAccount: [
+        {
+			"default": Boolean,
+			"service": String, 
+			"auth": {
+			    "user": String, 
+				"pass": String
+            }
+        }
+    ],
+}, { timestamps: true });
 
-}
+export const User = model<UserModel>("User", userSchema, 'Users');
+export default User;

@@ -11,7 +11,7 @@
     "build": "npm run build-ts",
     "build-ts": "tsc",
     "build:live": "nodemon --exec .\\node_modules\\.bin\\ts-node -- .\\src\\server.ts",
-    "test": "jest --forceExit"
+    "test": "jest --forceExit --watchAll"
   },
   "jest": {
     "globals": {
