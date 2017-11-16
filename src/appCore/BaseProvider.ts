@@ -15,7 +15,7 @@ export enum RepeatPeriods {
 
 export var BaseProviderSchema: Schema = new Schema({
     type: String,
-    token: {type: String, required: true, unique: true},
+    token: {type: String, required: true},
     from: String,
     delay: Number,
     to: [String],
@@ -40,6 +40,7 @@ BaseProviderSchema.pre("save", function(next) {
 // ----------------------------------------------------------------------
 BaseProviderSchema.methods.send = function(cb: any) {
     console.log('BaseProviderSchema send: ' + this);
+    cb(0);
 };
 
 BaseProviderSchema.methods.store = function(callback: any) {

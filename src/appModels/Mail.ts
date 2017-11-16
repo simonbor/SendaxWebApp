@@ -23,15 +23,14 @@ MailSchema.methods.send = function(cb: any) {
 
         transport.sendMail(this, (error, info) => {
             if (error) {
-                console.log('Message sent error: ' + error);
+                // console.log('Message sent error: ' + error);
                 cb(this, false);
             } else {
-                console.log('Message sent: ' + info.response);
+                // console.log('Message sent: ' + info.response);
                 cb(this, true);
             }
         });
-
-    });    
+    });
 };
 
 export var Mail = Core.BaseProvider.discriminator<Core.IProvider>('Mail', MailSchema);

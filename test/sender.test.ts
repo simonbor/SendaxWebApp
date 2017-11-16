@@ -5,9 +5,10 @@ import { BaseProvider, Sender } from '../src/appCore';
 var mongoose = require('mongoose');
 mongoose.Promise = Promise;
 
-describe('Test BaseProviders methods', () => {
+describe('Test Sender methods', () => {
     beforeAll(function(done) {
-        mongoose.connect(cfg.dbUrl, { useMongoClient: true }, done);
+        let uri = cfg.dbUrl
+        mongoose.connect(uri, { useMongoClient: true }, done);
     });
     beforeEach((done) => {
         mongoose.connection.db.dropCollection('Orders', () => {
@@ -23,23 +24,33 @@ describe('Test BaseProviders methods', () => {
         mongoose.disconnect(done);
     });
 
-    test('The send mechanism quantity functionality test', (done) => {
+    test('The sendAll functionality test', (done) => {
 
         let testOrders = [
-            new Mail({ type: 'Test', token: "0", mailProvider: "../../test/mocks/nodemailer" }),
-            new Mail({ type: 'Test', token: "0", mailProvider: "../../test/mocks/nodemailer" })
+            new Mail({                                      // should to be send
+                type: 'Mail', token: "0", 
+                mailProvider: "../../test/mocks/nodemailer",
+                timeToSend: 0 }),
+            new Mail({                                      // should to be send
+                type: 'Mail', token: "1", sent: false, 
+                mailProvider: "../../test/mocks/nodemailer",
+                timeToSend: 0 }),
+            new Mail({                                      // shouldn't be send
+                type: 'Mail', token: "2",
+                mailProvider: "../../test/mocks/nodemailer",
+                timeToSend: Number.MAX_SAFE_INTEGER })
         ];
 
         BaseProvider.create(testOrders, (err)=>{
             if(!err){
-                Sender.sendThese(testOrders, (sentNum: any) => {
+                Sender.sendAll((sentNum: any) => {
                     expect(sentNum).toBe(2);
                     done();
                 });
             } else {
                 console.log(`testOrders insert error: ${err}`);
                 done();
-            } 
+            }
         });
     });
 });
