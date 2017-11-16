@@ -15,10 +15,10 @@ var RepeatPeriods;
 ;
 exports.BaseProviderSchema = new mongoose_1.Schema({
     type: String,
-    token: { type: String, required: true, unique: true },
+    token: { type: String, required: true },
     from: String,
     delay: Number,
-    to: [[String]],
+    to: [String],
     repeat: String,
     subject: String,
     text: String,
@@ -38,6 +38,7 @@ exports.BaseProviderSchema.pre("save", function (next) {
 // ----------------------------------------------------------------------
 exports.BaseProviderSchema.methods.send = function (cb) {
     console.log('BaseProviderSchema send: ' + this);
+    cb(0);
 };
 exports.BaseProviderSchema.methods.store = function (callback) {
     const params = { $set: { sent: this.sent, repeated: this.repeated, timeToSend: (this.timeToSend || -1) } };

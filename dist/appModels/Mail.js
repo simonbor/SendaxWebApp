@@ -18,11 +18,11 @@ exports.MailSchema.methods.send = function (cb) {
         const transport = nodemailer.createTransport(mailAccount);
         transport.sendMail(this, (error, info) => {
             if (error) {
-                console.log('Message sent error: ' + error);
+                // console.log('Message sent error: ' + error);
                 cb(this, false);
             }
             else {
-                console.log('Message sent: ' + info.response);
+                // console.log('Message sent: ' + info.response);
                 cb(this, true);
             }
         });

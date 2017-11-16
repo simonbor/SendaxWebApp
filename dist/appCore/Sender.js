@@ -3,23 +3,28 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const _1 = require("./");
 class Sender {
     static sendThese(orders, cb) {
-        let sentNum = 0;
+        this.sentNum = 0;
+        this.triedNum = 0;
         for (let i = 0; i < orders.length; i++) {
             orders[i].send((that, result) => {
                 if (result) {
                     that.update(); // update sent order
                     that.store(() => { }); // store sent order in the DB 
-                    sentNum++;
+                    this.sentNum++;
                 }
+                this.triedNum++;
                 // return sent orders number on the last loop iteration
-                (i >= (orders.length - 1)) && cb(sentNum);
+                if (this.triedNum === orders.length) {
+                    cb(this.sentNum);
+                    return;
+                }
             });
         }
     }
     static sendAll(cb) {
         var now = new Date().getTime();
         // select all when "sent" = false or "sent" is not exists or "timeToSend" less then now
-        let params = {
+        const params = {
             $and: [{
                     $or: [{ sent: false }, { sent: { $exists: false } }]
                 }, {
