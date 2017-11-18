@@ -17,9 +17,9 @@ exports.BaseProviderSchema = new mongoose_1.Schema({
     type: String,
     token: { type: String, required: true },
     from: String,
-    delay: Number,
+    delay: { type: Number, required: true },
     to: [String],
-    repeat: String,
+    repeat: { type: String, required: true },
     subject: String,
     text: String,
     html: String,
@@ -31,6 +31,9 @@ exports.BaseProviderSchema.pre("save", function (next) {
     let now = new Date();
     if (!this.createdAt) {
         //this.createdAt = now;
+    }
+    if (!this.timeToSend) {
+        this.timeToSend = parseInt(this.delay) + new Date().getTime();
     }
     next();
 });

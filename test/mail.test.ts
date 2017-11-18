@@ -26,8 +26,10 @@ describe('Test BaseProviders methods', () => {
     test('The send mechanism quantity functionality test', (done) => {
 
         let testOrders = [
-            new Mail({ type: 'Test', token: "0", mailProvider: "../../test/mocks/nodemailer" }),
-            new Mail({ type: 'Test', token: "0", mailProvider: "../../test/mocks/nodemailer" })
+            new Mail({ type: 'Test', token: "0", mailProvider: "../../test/mocks/nodemailer",
+                repeat: 0, delay: 0 }),
+            new Mail({ type: 'Test', token: "0", mailProvider: "../../test/mocks/nodemailer",
+                repeat: 0, delay: 0 })
         ];
 
         BaseProvider.create(testOrders, (err)=>{

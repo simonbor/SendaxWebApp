@@ -28,15 +28,15 @@ describe('Test Sender methods', () => {
 
         let testOrders = [
             new Mail({                                      // should to be send
-                type: 'Mail', token: "0", 
+                type: 'Mail', token: "0", repeat: 0, delay: 0, 
                 mailProvider: "../../test/mocks/nodemailer",
                 timeToSend: 0 }),
             new Mail({                                      // should to be send
-                type: 'Mail', token: "1", sent: false, 
+                type: 'Mail', token: "0", repeat: 0, delay: 0, 
                 mailProvider: "../../test/mocks/nodemailer",
-                timeToSend: 0 }),
+                timeToSend: 0, sent: false }),
             new Mail({                                      // shouldn't be send
-                type: 'Mail', token: "2",
+                type: 'Mail', token: "0", repeat: 0, delay: 0, 
                 mailProvider: "../../test/mocks/nodemailer",
                 timeToSend: Number.MAX_SAFE_INTEGER })
         ];

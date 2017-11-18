@@ -17,21 +17,24 @@ export var BaseProviderSchema: Schema = new Schema({
     type: String,
     token: {type: String, required: true},
     from: String,
-    delay: Number,
+    delay: { type: Number, required: true },
     to: [String],
-    repeat: String,
+    repeat: { type: String, required: true },
     subject: String,
     text: String,
     html: String,
     timeToSend: Number,
-    sent: {type:Boolean, default: false}, // = false,
-    repeated: {type:Number, default:0} // = 0
+    sent: { type: Boolean, default: false }, // = false,
+    repeated: { type: Number, default: 0 } // = 0
 }, { discriminatorKey: 'kind' });
 
 BaseProviderSchema.pre("save", function(next) {
   let now = new Date();
   if (!this.createdAt) {
     //this.createdAt = now;
+  }
+  if ( !this.timeToSend ) {
+    this.timeToSend = parseInt(this.delay) + new Date().getTime();
   }
   next();
 });
