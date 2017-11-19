@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const cfg = require("./appConfig");
 const appCore_1 = require("./appCore");
+const Routers = require("./appRouters/AppRouter");
 var mongoose = require('mongoose');
 const app = express();
 /* // the technique to provide params throw the layers of the application
@@ -39,10 +40,8 @@ app.use(function (req, res, next) {
 });
 // Express Routers
 //--------------------------------------
-const mailRouter = require("./appRouters/AppRouter");
-app.use("/mail", mailRouter);
-const smsRouter = require("./appRouters/AppRouter");
-app.use("/sms", smsRouter);
+app.use("/mail", Routers.router);
+app.use("/sms", Routers.router);
 app.get("/", (req, res) => {
     res.send("<b>Welcome to Sendax Messaging System</b><p>Fix your request for send a message</p>");
 });

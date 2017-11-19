@@ -2,7 +2,7 @@
   "app": {
     "cycleSend": true,
     "cycleDelay": 30,
-    "demoMode": false
+    "demoMode": true
 	},
 	"dbUrl": "mongodb://localhost:27017/test",
 	"defUser": {

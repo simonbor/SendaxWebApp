@@ -13,10 +13,11 @@ var Routers;
         var providerName = router[0].toUpperCase() + router.slice(1).toLowerCase();
         return appCore_1.Activator.createInstance(providerName, jsonParams);
     };
-    var processRequest = (order, callback) => {
+    // todo: move to more appropriated place. maybe Sender.ts
+    Routers.processRequest = (order, callback, logSentResult = true) => {
         order.insert((saveResult) => {
             appCore_1.Sender.sendAll((sendResult) => {
-                console.log(`Performed ${sendResult} orders`);
+                logSentResult && console.log(`Performed ${sendResult} orders`);
                 callback(saveResult);
             });
         });
@@ -29,7 +30,7 @@ var Routers;
     Routers.router.get("/:token/:from/:to/:delay/:repeat/:subject/:text", (req, res) => {
         var order = createInstance(req.baseUrl.slice(1), req.params);
         if (order.valid()) {
-            processRequest(order, (result) => {
+            Routers.processRequest(order, (result) => {
                 res.json(result);
             });
         }
@@ -41,7 +42,7 @@ var Routers;
     Routers.router.post("/", (req, res) => {
         var order = createInstance(req.baseUrl.slice(1), req.body);
         if (order.valid()) {
-            processRequest(order, (result) => {
+            Routers.processRequest(order, (result) => {
                 res.json(result);
             });
         }
@@ -50,5 +51,8 @@ var Routers;
         }
     });
 })(Routers || (Routers = {}));
-module.exports = Routers.router;
+module.exports = {
+    router: Routers.router,
+    processRequest: Routers.processRequest
+};
 //# sourceMappingURL=AppRouter.js.map

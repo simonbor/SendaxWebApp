@@ -2,7 +2,7 @@
 
 namespace Routers {
     var express: any = require("express");
-    export var router: any = express.Router();
+    export const router: any = express.Router();
     var bodyParser: any = require("body-parser");
 
     router.use(bodyParser.json());                          // for parsing application/json
@@ -14,10 +14,11 @@ namespace Routers {
         return Activator.createInstance(providerName, jsonParams);
     };
 
-    var processRequest = (order: IProvider, callback: any) => {                
+    // todo: move to more appropriated place. maybe Sender.ts
+    export const processRequest = (order: IProvider, callback: any, logSentResult: boolean = true) => {
         order.insert((saveResult: any) => {                       // store the send order
             Sender.sendAll((sendResult: any) => {
-                console.log(`Performed ${sendResult} orders`);
+                logSentResult && console.log(`Performed ${sendResult} orders`);
                 callback(saveResult);
             });
         });
@@ -58,4 +59,7 @@ namespace Routers {
         });
 }
 
-module.exports = Routers.router;
+module.exports = {
+    router: Routers.router,
+    processRequest: Routers.processRequest
+}

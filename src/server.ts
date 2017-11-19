@@ -1,6 +1,7 @@
 ﻿const express: any = require("express");
 import cfg = require('./appConfig');
 import { Sender } from './appCore';
+const Routers: any = require("./appRouters/AppRouter");
 var mongoose = require('mongoose');
 
 const app: any = express();
@@ -40,10 +41,8 @@ app.use(function (req, res, next) {
 
 // Express Routers
 //--------------------------------------
-const mailRouter: any = require("./appRouters/AppRouter");
-app.use("/mail", mailRouter);
-const smsRouter: any = require("./appRouters/AppRouter");
-app.use("/sms", smsRouter);
+app.use("/mail", Routers.router);
+app.use("/sms",  Routers.router);
 
 app.get("/", (req: any, res: any) => {
     res.send("<b>Welcome to Sendax Messaging System</b><p>Fix your request for send a message</p>");
