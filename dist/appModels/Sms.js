@@ -16,7 +16,7 @@ exports.SmsSchema.methods.send = function (cb) {
         const nexmo = new Nexmo(smsAccount.auth);
         var from = this.from;
         var to = this.from;
-        var text = this.body;
+        var text = this.text;
         nexmo.message.sendSms(from, to, text);
         //console.log(`The order ${this._id} was marked as sent. For real send please implement Sms.send() method`);
         cb(this, true);
