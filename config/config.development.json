@@ -12,8 +12,16 @@
 			"default": true,
 			"service": "Gmail", 
 			"auth": {
-			    "user": "simonbor.bell@gmail.com", 
+				"user": "simonbor.bell@gmail.com", 
 				"pass": "87cf1d70f26031a29aaa"
+			}
+		}],
+		"smsAccount": [{
+			"default": true,
+			"service": "nexmo",
+			"auth": {
+				"apiKey": "472bf4de",
+				"apiSecret": "d6964625f83a68e4cff5d0b8f4bba7b8"
 			}
 		}]
 	}
