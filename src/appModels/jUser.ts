@@ -39,14 +39,14 @@ export type UserModel = Document & {
 				"pass": String
             }
         }
-    ],   // cell phone
+    ],
     smsAccount: [
         {
 			"default": Boolean,
 			"service": String, 
 			"auth": {
-			    "key": String, 
-				"secret": String
+			    "apiKey": String, 
+				"apiSecret": String
             }
         }
     ],
@@ -54,7 +54,6 @@ export type UserModel = Document & {
 
 export const User = model<UserModel>("User", userSchema, 'Users');
 export default User;
-
 
 /* 
 {
@@ -76,7 +75,7 @@ export default User;
             "service": "nexmo",
             "auth": {
                 "apiKey": "472bf4de",
-                "apiSecret": "66422b66016f21cd"
+                "apiSecret": "d6964625f83a68e4cff5d0b8f4bba7b8"
             }
         }
     ]

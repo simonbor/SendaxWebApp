@@ -32,8 +32,8 @@ const userSchema = new mongoose_1.Schema({
             "default": Boolean,
             "service": String,
             "auth": {
-                "key": String,
-                "secret": String
+                "apiKey": String,
+                "apiSecret": String
             }
         }
     ],
@@ -60,7 +60,7 @@ exports.default = exports.User;
             "service": "nexmo",
             "auth": {
                 "apiKey": "472bf4de",
-                "apiSecret": "66422b66016f21cd"
+                "apiSecret": "d6964625f83a68e4cff5d0b8f4bba7b8"
             }
         }
     ]

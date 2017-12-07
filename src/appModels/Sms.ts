@@ -10,24 +10,20 @@ SmsSchema.methods.send = function(cb: any) {
 
     const Nexmo = require(this.smsProvider);
     const cfg: any = require('../appConfig');
+    const crypt = require('../appCore/Crypt');    
     
     User.findOne({token: this.token}, (err, user) => {
         
-        // retrieve the default user from config for test sending
+        // for test sending the default user is coming from config
         user = user || cfg.defUser;
 
         const smsAccount: any = JSON.parse(JSON.stringify(user.smsAccount[0]));
-        const nexmo = new Nexmo(smsAccount.auth);
-        
-        var from = this.from;
-        var to = this.from;
-        var text = this.text;
-  
-        nexmo.message.sendSms(from, to, text);
+        smsAccount.auth.apiSecret = crypt.decrypt(smsAccount.auth.apiSecret);
+        const nexmo = new Nexmo(smsAccount.auth);        
 
-        //console.log(`The order ${this._id} was marked as sent. For real send please implement Sms.send() method`);
+        nexmo.message.sendSms(this.from, this.to, this.text);
         cb(this, true);    
     });
 };
-    
+
 export var Sms = BaseProvider.discriminator<IProvider>('Sms', SmsSchema);

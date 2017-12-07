@@ -20,8 +20,8 @@
 			"default": true,
 			"service": "nexmo",
 			"auth": {
-				"apiKey": "",
-				"apiSecret": ""
+				"apiKey": "472bf4de",
+				"apiSecret": "d6964625f83a68e4cff5d0b8f4bba7b8"
 			}
 		}]
 	}
