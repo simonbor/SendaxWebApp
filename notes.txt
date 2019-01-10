@@ -1,0 +1,63 @@
+
+// -------------
+Git source control and Heroku upload
+
+git init
+echo 'node_modules' > .gitignore
+git add .
+git commit -am 'initial commit'
+
+heroku apps:create --or-- heroku create sendax-post --buildpack heroku/nodejs
+git remote add heroku https://github.com/simonbor/SendaxWebApp.git
+git push heroku master
+
+// -------------
+continue commits and deploy - 
+git add . & git commit -am "" & git push heroku master
+
+// -------------
+other handy git commands
+
+git remote -v
+git remote remove heroku
+git remote add github https://github.com/simonbor/SendaxWebApp.git
+
+// -------------
+other handy heroku commands
+
+heroku logs
+heroku logs -n 200  // the number of log lines to retrieve (up to a maximum of 1,500 lines)
+heroku logs --tail  // real-time tail displays recent logs and leaves the session open for real-time logs to stream in
+
+// -------------
+Some Usable
+
+TypeScript with NodeJS (live compile + run included) - 
+https://basarat.gitbooks.io/typescript/content/docs/quick/nodejs.html
+
+Email sent throw Gmail workaround/necessary steps - 
+1. https://support.google.com/accounts/answer/6010255
+2. https://accounts.google.com/DisplayUnlockCaptcha
+
+Sent mails via NodeMailer links - 
+1. http://thisdavej.com/node-js-sending-email-notifications-using-nodemailer-and-gmail/
+2. http://javascript.tutorialhorizon.com/2015/07/02/send-email-node-js-express/
+3. https://nodemailer.com/using-gmail/  (Mailgun or SendGrid)
+
+// -------------
+MongoDB configurations
+
+Mlab connection string
+mongodb://sendaxdb:<my eight digs standard pass>@ds041496.mlab.com:41496/sendaxdb
+
+Local connection string
+mongodb://localhost:27017/sendaxdb
+
+// -------------
+MongoDB commands
+
+Create new Database
+use <new DB name>
+
+Create new Collection
+db.<new collection name>.save({})

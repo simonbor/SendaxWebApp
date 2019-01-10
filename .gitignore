@@ -1,7 +1,6 @@
 node_modules
 bin
 obj
-*.txt
 Scripts
 .vscode
 *.js.map
