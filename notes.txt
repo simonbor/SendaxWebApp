@@ -23,6 +23,11 @@ git remote remove heroku
 git remote add github https://github.com/simonbor/SendaxWebApp.git
 
 // -------------
+see all the branch commits
+
+git cherry -v master
+
+// -------------
 other handy heroku commands
 
 heroku logs
