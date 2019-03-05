@@ -4,7 +4,7 @@
     "cycleDelay": 30,
     "demoMode": false
   },
-	"dbUrl": "mongodb://localhost:27017/sendaxdb",
+	"dbUrl": "mongodb://mongo:27017/sendaxdb",
 	"defUser": {
 		"token": 0, 
 		"type": "Active", 
