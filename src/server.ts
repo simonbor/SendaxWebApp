@@ -63,14 +63,3 @@ setTimeout(loop, 50, cycleDelay);
 
 const port: number = process.env.PORT || 3000;
 app.listen(port);
-
-// 1. -- For repair the project tests I need inject the mongoose - http://brianflove.com/2016/10/04/typescript-declaring-mongoose-schema-model/, http://rob.conery.io/2012/02/24/testing-your-model-with-mocha-mongo-and-nodejs/
-// 1.1 -- Should to refactoring the tests structure - http://www.albertgao.xyz/2017/06/19/test-your-model-via-jest-and-mongoose/, https://www.terlici.com/2014/09/15/node-testing.html, http://www.scotchmedia.com/tutorials/express/authentication/1/06
-// 2. -- Organize the project structure - https://github.com/basarat/typescript-book/blob/master/docs/quick/nodejs.md
-// 3. Extend the app by add the Telegram support - https://core.telegram.org/api/obtaining_api_id
-// 4. Add history and active orders
-
-// -----------------------------------------------------
-// Production Installation important steps
-// -----------------------------------------------------
-// 1. set the NODE_ENV = "production" and MLAB_SENDAX_URI = "/*connection string*/" server environment variables

@@ -1,0 +1,26 @@
+[
+    {
+        "token": "0544777601",
+        "type": "Active",
+        "mailAccount": [
+            {
+                "default": true,
+                "service": "Gmail",
+                "auth": {
+                    "user": "simonbor@gmail.com",
+                    "pass": "83d80671a52e2da09db68cada9edb4b0"
+                }
+            }
+        ],
+        "smsAccount": [
+            {
+                "default": true,
+                "service": "nexmo",
+                "auth": {
+                    "apiKey": "472bf4de",
+                    "apiSecret": "d6964625f83a68e4cff5d0b8f4bba7b8"
+                }
+            }
+        ]
+    }
+]
