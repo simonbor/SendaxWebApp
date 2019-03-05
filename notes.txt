@@ -66,3 +66,20 @@ use <new DB name>
 
 Create new Collection
 db.<new collection name>.save({})
+
+
+// -------------
+docker commands
+
+docker build .
+docker images ps
+docker-compose up -d mongo
+docker-compose up mongo-seed
+docker-compose up app
+docker-compose build --build-arg buildtime_variable=new_value app
+docker container ps
+docker-compose ps
+docker exec -it mongo mongo
+docker-compose down
+docker images purge
+docker system prune -a
