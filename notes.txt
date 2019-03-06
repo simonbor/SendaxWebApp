@@ -8,7 +8,7 @@ git add .
 git commit -am 'initial commit'
 
 heroku apps:create --or-- heroku create sendax-post --buildpack heroku/nodejs
-git remote add heroku https://github.com/simonbor/SendaxWebApp.git
+git remote add heroku https://git.heroku.com/sendax.git
 git push heroku master
 
 // -------------
