@@ -23,9 +23,11 @@ MailSchema.methods.send = function(cb: any) {
 
         transport.sendMail(this, (error, info) => {
             if (error) {
+                process.env.NODE_ENV && process.env.NODE_ENV != 'test' &&
                 console.error('Message sent error: ' + error);
                 cb(this, false);
             } else {
+                process.env.NODE_ENV && process.env.NODE_ENV != 'test' &&
                 console.info('Message sent: ' + info.response);
                 cb(this, true);
             }
