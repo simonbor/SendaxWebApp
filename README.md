@@ -11,9 +11,9 @@ It can send/order sending scheduled routine messages over the Internet by HTTP r
 
 ## Start notes
 
-1. sudo docker-compose build --build-arg crypto_key=<gmail password> app
-2. docker-compose up -d mongo
-3. docker-compose up mongo-seed
+1. docker-compose up -d mongo
+2. docker-compose up mongo-seed
+3. docker build -t app --build-arg crypto_key=<gmail password> .
 4. docker-compose up app
 5. order sending by request the http://localhost:3000/mail/<token>/<from email>/<to email>/0/0/<subject>/<text>
 
