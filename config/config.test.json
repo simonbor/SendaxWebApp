@@ -4,7 +4,7 @@
     "cycleDelay": 30,
     "demoMode": true
 	},
-	"dbUrl": "mongodb://mongo:27017/test",
+	"dbUrl": "mongodb://localhost:27017/test",
 	"defUser": {
 		"token": 0, 
 		"type": "Active", 
@@ -13,7 +13,7 @@
 			"service": "Gmail", 
 			"auth": {
 			    "user": "simonbor.bell@gmail.com", 
-				"pass": "87cf1d70f26031a29aaa"
+				"pass": "187eb9ca66be8c7fc5fc"
 			}
 		}],
 		"smsAccount": [{

@@ -23,6 +23,3 @@ Thumbs.db
 
 # Ignore built ts files
 dist/**/*
-
-# Ignore mongo data
-data

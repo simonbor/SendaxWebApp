@@ -61,5 +61,5 @@ const loop = (delay) => {
 };
 setTimeout(loop, 50, cycleDelay);
 
-const port: number = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 app.listen(port);

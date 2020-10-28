@@ -2,6 +2,11 @@
   "name": "sendax-server",
   "version": "0.0.0",
   "description": "Sending scheduled messages by simple HTTP request",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/simonbor/sendax-server.git"
+  },
   "main": "server.js",
   "author": {
     "name": "Simon"
@@ -10,7 +15,7 @@
     "start": "npm run build && npm run build:live",
     "build": "npm run build-ts",
     "build-ts": "tsc",
-    "build:live": "nodemon --exec .\\node_modules\\.bin\\ts-node -- .\\src\\server.ts",
+    "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./src/server.ts",
     "test": "jest --forceExit --watchAll"
   },
   "jest": {
@@ -49,6 +54,6 @@
     "nodemon": "^1.11.0",
     "ts-jest": "^19.0.8",
     "ts-node": "^3.2.0",
-    "typescript": "^2.4.0"
+    "typescript": "^3.6.0"
   }
 }

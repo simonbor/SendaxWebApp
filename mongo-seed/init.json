@@ -7,8 +7,8 @@
                 "default": true,
                 "service": "Gmail",
                 "auth": {
-                    "user": "simonbor@gmail.com",
-                    "pass": "83d80671a52e2da09db68cada9edb4b0"
+                    "user": "simonbor.bell@gmail.com",
+                    "pass": "187eb9ca66be8c7fc5fc"
                 }
             }
         ],

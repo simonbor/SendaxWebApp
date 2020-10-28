@@ -23,10 +23,10 @@ MailSchema.methods.send = function(cb: any) {
 
         transport.sendMail(this, (error, info) => {
             if (error) {
-                // console.log('Message sent error: ' + error);
+                console.error('Message sent error: ' + error);
                 cb(this, false);
             } else {
-                // console.log('Message sent: ' + info.response);
+                console.info('Message sent: ' + info.response);
                 cb(this, true);
             }
         });
