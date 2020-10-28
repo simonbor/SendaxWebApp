@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Mail = exports.MailSchema = void 0;
 const Core = require("../appCore");
 const appModels_1 = require("../appModels");
 const mongoose_1 = require("mongoose");
@@ -18,11 +19,11 @@ exports.MailSchema.methods.send = function (cb) {
         const transport = nodemailer.createTransport(mailAccount);
         transport.sendMail(this, (error, info) => {
             if (error) {
-                // console.log('Message sent error: ' + error);
+                console.error('Message sent error: ' + error);
                 cb(this, false);
             }
             else {
-                // console.log('Message sent: ' + info.response);
+                console.info('Message sent: ' + info.response);
                 cb(this, true);
             }
         });

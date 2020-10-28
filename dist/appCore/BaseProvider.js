@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.BaseProvider = exports.BaseProviderSchema = exports.RepeatPeriods = void 0;
 const cfg = require("../appConfig");
 const mongoose_1 = require("mongoose");
 const jUser_1 = require("../appModels/jUser");
@@ -76,7 +77,7 @@ exports.BaseProviderSchema.methods.insert = function (cb) {
         if (err)
             console.log(err); // TODO: change to handleError(err);
         if (user) {
-            if (user.type.toString() === 'Active') {
+            if (user.type.toString() === 'Active') { // TODO: check the issue with using the - Models.UserType.Active
                 exports.BaseProvider.create(this, (err, res) => {
                     if (err)
                         console.log(err); // TODO: change to handleError(err);

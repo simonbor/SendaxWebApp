@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Activator = void 0;
 const Models = require("../appModels");
 class Activator {
     static createInstance(type, jsonParams) {
